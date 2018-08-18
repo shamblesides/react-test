@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Sprite from './Sprite';
 
-class App extends Component {
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    const srcs= [logo];
+
+    this.state = { ready: false };
+    this.loadImages(srcs).then(images => {
+      this.setState({ ready: true, images })
+    });
+  }
+
+  async loadImages(srcs) {
+    return Promise.all(srcs.map(src => new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+      img.src = src;
+    })));
+  }
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+    return this.state.ready ? (
+      <div>
+        ready
+        {this.state.images.map(image => (
+          <Sprite image={image}></Sprite>
+        ))}
       </div>
+    ) : (
+      <div>loading</div>
     );
   }
 }
-
-export default App;
