@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './App.css';
 import Sprite from './Sprite';
 
 export default class App extends Component {
