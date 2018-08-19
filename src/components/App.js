@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Sprite from './Sprite';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.state =  { ready: false };
+  }
 
-    const srcs= [logo];
+  componentDidMount() {
+    this.loadImages(this.props.srcs);
+  }
 
-    this.state = { ready: false };
-    this.loadImages(srcs).then(images => {
-      this.setState({ ready: true, images })
-    });
+  componentDidUpdate(prevProps) {
+    if (this.props.srcs !== prevProps.srcs) {
+      this.loadImages(this.props.srcs);
+    }
   }
 
   async loadImages(srcs) {
-    return Promise.all(srcs.map(src => new Promise((resolve, reject) => {
+    this.setState({ ready: false });
+
+    const promises = srcs.map(src => new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(img);
       img.onerror = reject;
       img.src = src;
-    })));
+    }));
+
+    const images = await Promise.all(promises);
+
+    this.setState({ ready: true, images });
   }
 
   render() {
