@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import Sprite from './Sprite';
+import './Screen.css';
 
-export default class App extends Component {
+export default class Screen extends Component {
   constructor(props) {
     super(props);
     this.state =  { ready: false };
   }
 
   componentDidMount() {
+    console.log('App componentDidMount')
     this.loadImages(this.props.srcs);
   }
 
   componentDidUpdate(prevProps) {
+    console.log('App componentDidUpdate')
     if (this.props.srcs !== prevProps.srcs) {
       this.loadImages(this.props.srcs);
     }
@@ -27,21 +30,18 @@ export default class App extends Component {
       img.src = src;
     }));
 
-    const images = await Promise.all(promises);
+    await Promise.all(promises);
 
-    this.setState({ ready: true, images });
+    this.setState({ ready: true });
   }
 
   render() {
     return this.state.ready ? (
-      <div>
-        ready
-        {this.state.images.map(image => (
-          <Sprite image={image}></Sprite>
-        ))}
+      <div className="cancan-wrapper">
+        {this.props.sprites.map(sprite => (<Sprite {...sprite}/>))}
       </div>
     ) : (
-      <div>loading</div>
+      <div className="cancan-wrapper">loading</div>
     );
   }
 }

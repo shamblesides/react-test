@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Sprite extends Component {
-    render() {
-        return (
-            <canvas ref="canvas" width={300} height={300}/>
-        );
-    }
-    componentDidMount() {
-        const ctx = this.refs.canvas.getContext('2d');
-        ctx.drawImage(this.props.image, 0, 0);
-    }
+export default ({ sheet, x, y }) => {
+    return (
+        <img src={sheet.src} alt="" style={{position:'absolute',top:x,left:y}}/>
+    );
 }
