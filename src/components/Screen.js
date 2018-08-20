@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sprite from './Sprite';
 import './Screen.css';
+import {loadImages} from '../services/images';
 
 export default class Screen extends Component {
   constructor(props) {
@@ -8,30 +9,19 @@ export default class Screen extends Component {
     this.state =  { ready: false };
   }
 
-  componentDidMount() {
-    console.log('App componentDidMount')
-    this.loadImages(this.props.srcs);
+  async componentDidMount() {
+    this.waitForImages(this.props.srcs);
   }
 
-  componentDidUpdate(prevProps) {
-    console.log('App componentDidUpdate')
+  async componentDidUpdate(prevProps) {
     if (this.props.srcs !== prevProps.srcs) {
-      this.loadImages(this.props.srcs);
+      this.waitForImages(this.props.srcs);
     }
   }
 
-  async loadImages(srcs) {
+  async waitForImages(srcs) {
     this.setState({ ready: false });
-
-    const promises = srcs.map(src => new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-      img.src = src;
-    }));
-
-    await Promise.all(promises);
-
+    await loadImages(this.props.srcs);
     this.setState({ ready: true });
   }
 

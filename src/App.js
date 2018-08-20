@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import Screen from './components/Screen';
 import charaImg from './sprites/chara.png';
+import sheetImg from './sprites/sheet.png';
 
 const sheets = {
     chara: {
         src: charaImg,
-    }
+    },
+    sheet: {
+        src: sheetImg,
+    },
 };
 
 export default class App extends Component {
     constructor(props) {
         super(props)
 
-        const srcs = [charaImg];
-        const sprites = [];
+        const srcs = [charaImg, sheetImg];
+        const sprites = Array(100).fill(0).map((_,i)=>i).map(i=>({
+            key: Math.random(),
+            sheet: sheets.sheet,
+            x: Math.random()*50,
+            y: Math.random()*50,
+        }))
 
         this.state = { srcs, sprites };
 
@@ -22,15 +31,11 @@ export default class App extends Component {
 
     loop() {
         this.setState({
-            sprites: [
-                // ...this.state.sprites,
-                {
-                    key: Math.random(),
-                    sheet: sheets.chara,
-                    x: Math.random()*50,
-                    y: Math.random()*50,
-                }
-            ]
+            ...this.state,
+            sprites: this.state.sprites.map(s => ({
+                ...s,
+                x: s.x-1
+            })),
         })
         window.requestAnimationFrame(() => this.loop());
     }
