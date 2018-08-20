@@ -6,7 +6,7 @@ import {loadImages} from '../services/images';
 export default class Screen extends Component {
   constructor(props) {
     super(props);
-    this.state =  { ready: false };
+    this.state = { ready: false };
   }
 
   async componentDidMount() {
