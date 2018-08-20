@@ -1,8 +1,11 @@
 import React from 'react';
-import { getScaledImage } from '../services/images';
+import { getDataUrl } from '../services/images';
 
 export default ({ sheet, x, y }) => {
+    const scale=2;
+    const top = Math.floor(y)*scale;
+    const left = Math.floor(x)*scale;
     return (
-        <img src={getScaledImage({src:sheet.src,scale:2})} alt="" style={{position:'absolute',top:x,left:y}}/>
+        <img src={getDataUrl({src:sheet.src,scale})} alt="" style={{position:'absolute',top,left}}/>
     );
 }

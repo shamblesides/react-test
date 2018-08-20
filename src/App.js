@@ -17,11 +17,11 @@ export default class App extends Component {
         super(props)
 
         const srcs = [charaImg, sheetImg];
-        const sprites = Array(100).fill(0).map((_,i)=>i).map(i=>({
+        const sprites = Array(1).fill(0).map((_,i)=>i).map(i=>({
             key: Math.random(),
             sheet: sheets.sheet,
-            x: Math.random()*50,
-            y: Math.random()*50,
+            x: 50,
+            y: 50,
         }))
 
         this.state = { srcs, sprites };
@@ -34,7 +34,7 @@ export default class App extends Component {
             ...this.state,
             sprites: this.state.sprites.map(s => ({
                 ...s,
-                x: s.x-1
+                x: s.x+Math.sin(Date.now()/300)
             })),
         })
         window.requestAnimationFrame(() => this.loop());
@@ -42,13 +42,8 @@ export default class App extends Component {
 
     render() {
         return (
-            <div>
-            <div style={{backgroundColor:'grey', width: 160, height: 120}}>
+            <div style={{backgroundColor:'grey', width: 600, height: 600}}>
                 <Screen srcs={this.state.srcs} sprites={this.state.sprites}/>
-            </div>
-            <div style={{backgroundColor:'grey', width: 160, height: 120}}>
-                <Screen srcs={this.state.srcs} sprites={this.state.sprites}/>
-            </div>
             </div>
         );
     }
