@@ -21,7 +21,7 @@ export default class Screen extends Component {
 
   async waitForImages(srcs) {
     this.setState({ ready: false });
-    await loadImages(this.props.srcs);
+    await loadImages(srcs);
     this.setState({ ready: true });
   }
 
