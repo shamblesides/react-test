@@ -1,17 +1,17 @@
-const imageDatas = new Map();
+const sheetImageDatas = new Map();
 const dataUrls = new Map();
 
-function getKey({src,scale=1}) {
-    return `${src}:${scale}`;
+function getKey({sheet,sprite=0,scale=1}) {
+    return `${sheet.name}:${sprite}:${scale}`;
 }
 
-export async function loadImages(srcs) {
-    const newSrcs = srcs.filter(src => !imageDatas.has(src));
+export async function loadSheets(sheets) {
+    const newSheets = sheets.filter(({name}) => !sheetImageDatas.has(name));
 
-    const promises = newSrcs.map(src => new Promise((resolve, reject) => {
+    const promises = newSheets.map(({name, src, spriteWidth, spriteHeight}) => new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
-            addImageData(src, img);
+            addImageData(name, img, spriteWidth, spriteHeight);
             resolve();
         };
         img.onerror = reject;
@@ -21,42 +21,46 @@ export async function loadImages(srcs) {
     await Promise.all(promises);
 }
 
-function addImageData(src, img) {
+function addImageData(name, img, spriteWidth, spriteHeight) {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     canvas.width = img.width;
     canvas.height = img.height;
     context.drawImage(img, 0, 0);
-
-    imageDatas.set(src, context.getImageData(0, 0, canvas.width, canvas.height));
-    dataUrls.set(getKey({src, scale:1}), canvas.toDataURL('image/png'));
+    sheetImageDatas.set(name, context.getImageData(0, 0, canvas.width, canvas.height));
 }
 
-function getScaledDataUrl(imageData, scale) {
+function getScaledDataUrl({name,spriteWidth=null,spriteHeight=null}, sprite, scale) {
+    const imageData = sheetImageDatas.get(name);
     const canvas = document.createElement('canvas');
-    canvas.width = imageData.width * scale;
-    canvas.height = imageData.height * scale;
     const context = canvas.getContext('2d');
+    canvas.width = (spriteWidth || imageData.width) * scale;
+    canvas.height = (spriteHeight || imageData.height) * scale;
+
+    const numCols = Math.floor(imageData.width/(spriteWidth || imageData.width));
+    const left = (sprite % numCols) * spriteWidth;
+    const top = Math.floor(sprite / numCols) * spriteHeight;
+    const right = left + (spriteWidth || imageData.width);
+    const bottom = top + (spriteHeight || imageData.height);
     
     const data = imageData.data;
-    let i = 0;
-    for(let y = 0; y < imageData.height; ++y) {
-        for(let x = 0; x < imageData.width; ++x) {
+    for(let y = top; y < bottom; ++y) {
+        for(let x = left; x < right; ++x) {
+            const i = 4 * (y*imageData.width+x);
             context.fillStyle = 'rgba('+data[i]+','+data[i+1]+','+data[i+2]+','+data[i+3]+')';
-            context.fillRect(x*scale, y*scale, scale, scale);
-            i+=4; // r,g,b,a
+            context.fillRect((x-left)*scale, (y-top)*scale, scale, scale);
         }
     }
     
     return canvas.toDataURL('image/png');
 }
 
-export function getDataUrl({src,scale}) {
-    const key = getKey({src, scale});
+export function getDataUrl({sheet,sprite=0,scale}) {
+    const key = getKey({sheet, sprite, scale});
 
     if (dataUrls.has(key)) return dataUrls.get(key);
 
-    const scaledDataUrl = getScaledDataUrl(imageDatas.get(src), scale);
+    const scaledDataUrl = getScaledDataUrl(sheet, sprite, scale);
     dataUrls.set(key, scaledDataUrl);
     return scaledDataUrl;
 }

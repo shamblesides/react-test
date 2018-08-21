@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Sprite from './Sprite';
 import './Screen.css';
-import {loadImages} from '../services/images';
+import { loadSheets } from '../services/images';
 
 export default class Screen extends Component {
   constructor(props) {
@@ -10,18 +10,18 @@ export default class Screen extends Component {
   }
 
   async componentDidMount() {
-    this.waitForImages(this.props.srcs);
+    this.waitForSheets(this.props.sheets);
   }
 
   async componentDidUpdate(prevProps) {
-    if (this.props.srcs !== prevProps.srcs) {
-      this.waitForImages(this.props.srcs);
+    if (this.props.sheets !== prevProps.sheets) {
+      this.waitForSheets(this.props.sheets);
     }
   }
 
-  async waitForImages(srcs) {
+  async waitForSheets(sheets) {
     this.setState({ ready: false });
-    await loadImages(srcs);
+    await loadSheets(sheets);
     this.setState({ ready: true });
   }
 
