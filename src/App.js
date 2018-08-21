@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Screen from './components/Screen';
+import Loader from './components/Loader';
 import charaImg from './sprites/chara.png';
 import sheetImg from './sprites/sheet.png';
 
@@ -31,8 +32,6 @@ export default class App extends Component {
         }))
 
         this.state = { sheets, sprites };
-
-        window.requestAnimationFrame(() => this.loop());
     }
 
     loop() {
@@ -49,7 +48,9 @@ export default class App extends Component {
     render() {
         return (
             <div style={{backgroundColor:'grey', width: 600, height: 600}}>
-                <Screen sheets={this.state.sheets} sprites={this.state.sprites}/>
+                <Loader sheets={this.state.sheets} onready={() => this.loop()} render={() => (
+                    <Screen sprites={this.state.sprites}/>
+                )}/>
             </div>
         );
     }
