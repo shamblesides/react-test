@@ -27,29 +27,28 @@ export default class App extends Component {
             key: Math.random(),
             sheet: sheets.find(s=>s.name==='chara'),
             sprite: 0,
-            x: i+50,
-            y: Math.random()*50,
-        }))
+            x: i*5,
+            y: i*5,
+        }));
 
         this.state = { sheets, sprites };
     }
 
     loop() {
-        this.setState({
-            sprites: this.state.sprites.map(s => ({
-                ...s,
-                x: s.x+Math.sin(Date.now()/300),
-                sprite: Math.floor(Date.now() / 500) % 3
-            }))
-        })
+        // this.setState({
+        //     sprites: this.state.sprites.map(s => ({
+        //         ...s,
+        //         sprite: Math.floor(Date.now() / 500) % 3
+        //     }))
+        // })
         window.requestAnimationFrame(() => this.loop());
     }
 
     render() {
         return (
-            <div style={{backgroundColor:'grey', width: 600, height: 600}}>
+            <div style={{backgroundColor:'grey', width: '100%', height: 600}}>
                 <Loader sheets={this.state.sheets} onready={() => this.loop()} render={() => (
-                    <Screen sprites={this.state.sprites}/>
+                    <Screen sprites={this.state.sprites} height={10} width={10} showOverflow/>
                 )}/>
             </div>
         );
