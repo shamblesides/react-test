@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Screen from './components/Screen';
 import Loader from './components/Loader';
+import Pad from './components/Pad';
 import charaImg from './sprites/chara.png';
 import sheetImg from './sprites/sheet.png';
 
@@ -30,8 +31,15 @@ export default class App extends Component {
             x: i*5,
             y: i*5,
         }));
+        const binds = {
+            'ArrowUp': 'up',
+            'ArrowDown': 'down',
+            'ArrowLeft': 'left',
+            'ArrowRight': 'right',
+            ' ': 'ok',
+        };
 
-        this.state = { sheets, sprites };
+        this.state = { sheets, sprites, binds };
     }
 
     loop() {
@@ -48,7 +56,9 @@ export default class App extends Component {
         return (
             <div style={{backgroundColor:'grey', width: '100%', height: 600}}>
                 <Loader sheets={this.state.sheets} onready={() => this.loop()} render={() => (
-                    <Screen sprites={this.state.sprites} height={10} width={10} showOverflow/>
+                    <Screen sprites={this.state.sprites} height={10} width={10} showOverflow overlays={() => [
+                        <Pad binds={this.state.binds}/>
+                    ]}/>
                 )}/>
             </div>
         );
