@@ -1,6 +1,7 @@
 import React from 'react';
 import Sprite from './Sprite';
 import ReactResizeDetector from 'react-resize-detector';
+import './Screen.css'
 
 const Screen = ({sprites, scale='auto', width=null, height=null, showOverflow=false, hostHeight, hostWidth}) => {
   // no area = no render
@@ -37,7 +38,7 @@ const Screen = ({sprites, scale='auto', width=null, height=null, showOverflow=fa
   }
 
   return (
-    <div className="cancan-wrapper" style={{width:'100%',height:'100%', display:'flex',justifyContent:'center',alignItems:'center', overflow:'hidden'}}>
+    <div className="cancan-wrapper">
       <div className="cancan-panel" style={style}>
         {sprites.map(sprite => (<Sprite {...sprite} scale={scale}/>))}
       </div>
