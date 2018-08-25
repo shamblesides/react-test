@@ -30,12 +30,15 @@ export default class Pad extends Component {
 
     render() {
         return (
-            <div
-                style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}
-                tabIndex="0"
-                onKeyDown={event=>this.onKeyDown(event)}
-                onKeyUp={event=>this.onKeyUp(event)}
+            <div style={{width:'100%', height:'100%', position:'relative'}}>
+                {this.props.render()}
+                <div
+                    style={{position:'absolute',top:0,left:0,bottom:0,right:0}}
+                    tabIndex="0"
+                    onKeyDown={event=>this.onKeyDown(event)}
+                    onKeyUp={event=>this.onKeyUp(event)}
                 />
+            </div>
         );
     }
 }

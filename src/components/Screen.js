@@ -42,7 +42,6 @@ const Screen = ({sprites, scale='auto', width=null, height=null, showOverflow=fa
       <div className="cancan-panel" style={style}>
         {sprites.map(sprite => (<Sprite {...sprite} scale={scale}/>))}
       </div>
-      {overlays()}
     </div>
   );
 };

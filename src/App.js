@@ -47,14 +47,13 @@ export default class App extends Component {
     }
 
     loop() {
+        const pad = this.state.pad.next();
         let x = 0, y = 0;
-        if (this.state.pad) {
-            const pad = this.state.pad.next();
-            if (pad.up.pressed) --y;
-            if (pad.down.pressed) ++y;
-            if (pad.left.pressed) --x;
-            if (pad.right.pressed) ++x;
-        }
+        if (pad.up.pressed) --y;
+        if (pad.down.pressed) ++y;
+        if (pad.left.pressed) --x;
+        if (pad.right.pressed) ++x;
+
         this.setState({
             sprites: this.state.sprites.map(s => ({
                 ...s,
@@ -63,16 +62,17 @@ export default class App extends Component {
                 sprite: Math.floor(Date.now() / 500) % 3
             }))
         });
+
         window.requestAnimationFrame(() => this.loop());
     }
 
     render() {
         return (
             <div style={{backgroundColor:'grey', width: '100%', height: 600}}>
-                <Loader sheets={this.state.sheets} onready={() => window.requestAnimationFrame(() => this.loop())} render={() => (
-                    <Screen sprites={this.state.sprites} height={10} width={10} showOverflow overlays={() => [
-                        <Pad key={0} binds={this.state.binds} register={pad => this.registerPad(pad)}/>
-                    ]}/>
+                <Pad binds={this.state.binds} register={pad => this.registerPad(pad)} render={() => (
+                    <Loader sheets={this.state.sheets} onready={() => window.requestAnimationFrame(() => this.loop())} render={() => (
+                        <Screen sprites={this.state.sprites} height={10} width={10} showOverflow/>
+                    )}/>
                 )}/>
             </div>
         );
