@@ -1,4 +1,6 @@
 import guy from './guy';
+import { player } from './player';
+import { ROOM_WIDTH } from './rooms';
 
 export const froge = (ops) => ({
     ...guy(ops),
@@ -33,22 +35,22 @@ export const froge = (ops) => ({
     },
 });
 
-/*
-export function bird(guy) {
-    guy.w = 8;
-    guy.h = 8;
-    guy.ya = 0.02;
-    guy.yv = -0.4;
-    guy.yvmax = 1;
-    guy.xvmax = 1;
-    guy.brain = function() {
-        var b = {};
-        if(player.x > this.x + 20) b.right = true;
-        else if(player.x < this.x - 20) b.left = true;
-        if(!player.isGrounded()) b.jump = true;
-        return b;
-    };
-    guy.act = function(brain) {
+export const bird = (ops) => ({
+    ...guy(ops),
+    w: 8,
+    h: 8,
+    ya: 0.02,
+    yv: -0.4,
+    yvmax: 1,
+    xvmax: 1,
+    brain() {
+        return {
+            left: (player.x < this.x - 20),
+            right: (player.x > this.x + 20),
+            jump: (!player.isGrounded()),
+        };
+    },
+    act(brain) {
         if(brain.right) {
             this.xa = 0.8;
             this.flip = '';
@@ -61,50 +63,47 @@ export function bird(guy) {
         if(this.isGrounded() && brain.jump) {
             this.yv = -1;
         }
-    };
-    guy.frame = function(clock) {
-        return clock%10>=5 ? 11: 10;
-    };
-}
+    },
+    frame: (clock) => clock%10>=5 ? 11: 10,
+});
 
-export function aquarium(guy) {
-    guy.y = guy.rand(5,35);
-    guy.xvmax = 0.5;
-    switch(guy.rand(3)) {
-        case 0:
-        guy.w = 9;
-        guy.h = 5;
-        guy.xdrag = 0.01;
-        guy.ya = 0;
-        guy.firstFrame = 15;
-        break;
-        
-        case 1:
-        guy.w = 6;
-        guy.h = 3;
-        guy.xdrag = 0.025;
-        guy.ya = 0;
-        guy.firstFrame = 17;
-        break;
-        
-        default:
-        guy.w = 12;
-        guy.h = 12;
-        guy.xdrag = 0.01;
-        guy.ya = -0.01;
-        guy.firstFrame = 19;
-        break;
-    }
-    guy.brain = function() {
+export const aquarium = (ops) => ({
+    ...guy(ops),
+    y: ops.rand(5,35),
+    xvmax: 0.5,
+    ...(ops.rand([
+        {
+            w: 9,
+            h: 5,
+            xdrag: 0.01,
+            ya: 0,
+            firstFrame: 15,
+        },
+        {
+            w: 6,
+            h: 3,
+            xdrag: 0.025,
+            ya: 0,
+            firstFrame: 17,
+        },
+        {
+            w: 12,
+            h: 12,
+            xdrag: 0.01,
+            ya: -0.01,
+            firstFrame: 19,
+        },
+    ])),
+    brain() {
         if(Math.abs(this.xv) <= this.xdrag) {
-            if(this.x > 78) return { left: true };
+            if(this.x > ROOM_WIDTH - 10) return { left: true };
             if(this.x < 10) return { right: true };
             if(this.flip === 'h') return { left: true };
             return { right: true };
         }
         return {};
-    };
-    guy.act = function(brain) {
+    },
+    act(brain) {
         if(Math.abs(this.xv) <= this.xdrag) {
             if(brain.left) {
                 this.flip = 'h';
@@ -119,55 +118,57 @@ export function aquarium(guy) {
             if(this.y < 15) this.ya = Math.abs(this.ya);
             else this.ya = -Math.abs(this.ya);
         }
-    };
-    guy.frame = function() {
+    },
+    frame() {
         return this.firstFrame + (Math.abs(this.xv) < 0.15? 1: 0);
-    };
-}
+    },
+});
 
-export function rock(guy) {
-    guy.w = 12;
-    guy.h = 7;
-    guy.y = guy.ground().height - 30;
-    guy.xfric = 0;
-    guy.brain = function() {
-        if(this.isGrounded() && guy.rand()<.01) {
+export const rock = (ops) => ({
+    ...guy(ops),
+    w: 12,
+    h: 7,
+    y: 0, //guy.ground().height - 30,
+    xfric: 0,
+    brain() {
+        if(this.isGrounded() && this.rand()<.01) {
             if(this.x > player.x) return { left: true };
             else return { right: true };
         }
         return {};
-    };
-    guy.act = function(brain) {
+    },
+    act(brain) {
         if(this.isGrounded()) {
             if(brain.left) { this.flip = 'h'; this.xv = -0.1; }
             if(brain.right) { this.flip = ''; this.xv = 0.1; }
         }
-    };
-    guy.frame = function(clock) {
+    },
+    frame(clock) {
         if(!this.isGrounded()) return 13;
         return clock%80>=60 && this.xv ? 12: 13;
-    };
-}
+    },
+});
 
-export function spinner(guy) {
-    guy.w = 9;
-    guy.h = 9;
-    guy.xdrag = 0;
-    guy.xfric = 0;
-    guy.ya = 0;
-    guy.y = guy.ground().height - 15;
-    guy.mode = 0;
-    guy.waitCounter = 10;
-    var dir = null;
-    guy.brain = function() {
-        if (this.rand()<0.03) {
-            dir = this.rand(['jump','left','right']);
+export const spinner = (ops) => ({
+    ...guy(ops),
+    w: 9,
+    h: 9,
+    xdrag: 0,
+    xfric: 0,
+    ya: 0,
+    y: 15, //guy.ground().height - 15,
+    mode: 0,
+    waitCounter: 10,
+    brain: (() => {
+        let dir = null;
+        return function() {
+            if (this.rand()<0.03) {
+                dir = this.rand(['jump','left','right']);
+            }
+            return { [dir]: true };
         }
-        var b = {};
-        b[dir] = true;
-        return b;
-    };
-    guy.act = function(brain) {
+    })(),
+    act(brain) {
         if(this.waitCounter > 0) {
             --this.waitCounter;
             return;
@@ -183,20 +184,18 @@ export function spinner(guy) {
             this.flip = (this.mode%4 === 3)? 'h': '';
             this.waitCounter = 10;
         }
-    };
-    guy.frame = function() {
+    },
+    frame() {
         if(this.mode === 0 || this.mode === 4) return 21;
         if(this.mode === 2 || this.mode === 6) return 23;
         return 22;
-    };
-}
-
-*/
+    },
+});
 
 export const guyTypes = [
-    froge
-    // bird,
-    // aquarium,
-    // rock,
-    // spinner
+    froge,
+    bird,
+    aquarium,
+    rock,
+    spinner,
 ];
