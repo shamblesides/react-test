@@ -3,7 +3,7 @@ import Sprite from './Sprite';
 import ReactResizeDetector from 'react-resize-detector';
 import './Screen.css'
 
-const Screen = ({sprites, scale='auto', width=null, height=null, showOverflow=false, hostHeight, hostWidth, overlays=null}) => {
+const Screen = ({sprites, scale='auto', width=null, height=null, showOverflow=false, hostHeight, hostWidth, backgroundColor=null}) => {
   // no area = no render
   if (!hostHeight || !hostWidth) return (<div/>);
 
@@ -29,7 +29,7 @@ const Screen = ({sprites, scale='auto', width=null, height=null, showOverflow=fa
   if (!width || showOverflow) width = Math.floor(hostWidth/scale);
 
   const style = {
-    backgroundColor: 'blue',
+    backgroundColor,
     overflow: 'hidden',
     position: 'relative',
     width: width*scale,

@@ -22,10 +22,10 @@ export default class App extends Component {
 
     render() {
         return (
-            <div style={{backgroundColor:'#45283c', width: '100%', height: 600}}>
+            <div style={{width: '100%', height: 600}}>
                 <Pad binds={this.state.binds} register={pad => this.registerPad(pad)} render={() => (
                     <Loader sheets={this.state.sheets} onready={() => window.requestAnimationFrame(() => this.loop())} render={() => (
-                        <Screen sprites={this.state.sprites} height={53} width={88} showOverflow/>
+                        <Screen backgroundColor='#45283c' sprites={this.state.sprites} height={53} width={88}/>
                     )}/>
                 )}/>
             </div>
