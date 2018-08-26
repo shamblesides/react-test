@@ -127,7 +127,7 @@ export const aquarium = (ops) => ({
 export const rock = (ops) => ({
     ...guy(ops),
     w: 12,
-    h: 7,
+    h: 6,
     y: 0, //guy.ground().height - 30,
     xfric: 0,
     brain() {

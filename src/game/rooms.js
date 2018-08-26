@@ -8,6 +8,7 @@ const propsSheet = sheets.find(s => s.name === 'props');
 export const ROOM_SEGMENTS = 22;
 export const GROUND_WIDTH = 4;
 export const ROOM_WIDTH = ROOM_SEGMENTS * GROUND_WIDTH;
+export const ROOM_HEIGHT = 53;
 export const MIN_GROUND_HEIGHT = 35;
 export const MAX_GROUND_HEIGHT = 50;
 export const NUM_PROPS = 22;
@@ -18,9 +19,15 @@ function sprites() {
     const sprites = [];
 
     this.ground.forEach((g, i) => {
-        // for(var y = g.height; y < this.height; y += 8) {
-        //     pan.blit('ground', 0, i*GROUND_WIDTH, y);
-        // }
+        for(var y = g.height; y < ROOM_HEIGHT; y += 8) {
+            sprites.push({
+                key: `ground${i}-${y}`,
+                sheet: groundSheet,
+                sprite: 0,
+                x: i*4,
+                y
+            });
+        }
         sprites.push(
             ...g.props.map((p, pIdx) => ({
                 key: `prop${i}-${pIdx}`,
