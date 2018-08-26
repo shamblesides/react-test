@@ -1,5 +1,6 @@
 import React from 'react';
 import { getDataUrl } from '../services/images';
+import './Sprite.css'
 
 export default ({ sheet, sprite, x, y, scale }) => {
     const top = Math.floor(y)*scale;
