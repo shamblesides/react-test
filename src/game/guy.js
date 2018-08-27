@@ -71,6 +71,7 @@ export default (overrides = {}) => ({
             sprite: this.frame(clock),
             x: this.x,
             y: this.y,
+            flip: this.flip,
         };
     },
     ...overrides
