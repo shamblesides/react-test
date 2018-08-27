@@ -49,16 +49,17 @@ function makeRoom(prevRoom) {
     const roomNum = (prevRoom) ? prevRoom.roomNum + 1 : 0;
     const ground = [startGround];
     const guys = [];
-    for(var i = 1; i < ROOM_SEGMENTS; ++i) {
-        var h = ground[i-1].height + rand(-2, 2);
-        if(rand()<0.05) h += rand(-20, 20);
-        h = mid(MIN_GROUND_HEIGHT, h, MAX_GROUND_HEIGHT);
-        ground[i] = { height: h, frame: startGround.frame, props: [] };
+    for(let i = 1; i < ROOM_SEGMENTS; ++i) {
+        const h = ground[i-1].height
+            + rand(-2, 2)
+            + (rand() < 0.05 ? rand(-20, 20) : 0)
+        const height = mid(MIN_GROUND_HEIGHT, h, MAX_GROUND_HEIGHT);
+        ground[i] = { height, frame: startGround.frame, props: [] };
     }
-    for(var i = 1; rand() < i; i *= 0.94) {
+    for(let i = 1; rand() < i; i *= 0.94) {
         ground[rand(ROOM_SEGMENTS)].props.push(rand(NUM_PROPS));
     }
-    for(var i = 0.8; rand() < i; i *= 0.8) {
+    for(let i = 0.8; rand() < i; i *= 0.8) {
         const guyType = rand(guyTypes);
         const guy = {...guyType({ roomNum, x: rand(40, 80), rand: rand.create() })}
         guys.push(guy);
