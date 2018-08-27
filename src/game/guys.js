@@ -194,7 +194,6 @@ export const spinner = guy((base) => ({
 }));
 
 export const guyTypes = [
-    froge,
     bird,
     fish,
     bigfish,

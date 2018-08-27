@@ -1,4 +1,4 @@
-import { bigfish } from "./guys";
+import { froge } from "./guys";
 import rand from "./rand";
 
-export const player = bigfish({ roomNum: 0, x: 20, rand: rand.create(505) });
+export const player = froge({ roomNum: 0, x: 20, rand: rand.create(505) });
