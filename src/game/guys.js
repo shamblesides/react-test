@@ -69,7 +69,7 @@ export const bird = (ops) => ({
 
 export const aquarium = (ops) => ({
     ...guy(ops),
-    y: ops.rand(5,35),
+    y: 15 + ops.rand(4,10) * (ops.rand() < .5 ? -1 : 1),
     xvmax: 0.5,
     ...(ops.rand([
         {
@@ -196,6 +196,8 @@ export const spinner = (ops) => ({
 export const guyTypes = [
     froge,
     bird,
+    aquarium,
+    aquarium,
     aquarium,
     rock,
     spinner,
