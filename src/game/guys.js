@@ -17,7 +17,7 @@ export const froge = (ops) => ({
             return {
                 left: (dir === -1),
                 right: (dir === 1),
-                jump: (this.rand()<0.005)
+                up: (this.rand()<0.005)
             }
         }
     })(),
@@ -25,7 +25,7 @@ export const froge = (ops) => ({
         if(brain.left) { this.xa = -1; this.flip = 'h'; }
         else if(brain.right) { this.xa = 1; this.flip = ''; }
         else this.xa = 0;
-        if(brain.jump && this.isGrounded() && this.state === 'standing')
+        if(brain.up && this.isGrounded() && this.state === 'standing')
             this.yv = -2.5;
     },
     frame(clock) {
@@ -47,7 +47,7 @@ export const bird = (ops) => ({
         return {
             left: (player.x < this.x - 20),
             right: (player.x > this.x + 20),
-            jump: (!player.isGrounded()),
+            up: (!player.isGrounded()),
         };
     },
     act(brain) {
@@ -60,7 +60,7 @@ export const bird = (ops) => ({
             this.flip = 'h';
         }
         else this.xa = 0;
-        if(this.isGrounded() && brain.jump) {
+        if(this.isGrounded() && brain.up) {
             this.yv = -1;
         }
     },
@@ -163,7 +163,7 @@ export const spinner = (ops) => ({
         let dir = null;
         return function() {
             if (this.rand()<0.03) {
-                dir = this.rand(['jump','left','right']);
+                dir = this.rand(['up','down','left','right']);
             }
             return { [dir]: true };
         }
@@ -173,7 +173,8 @@ export const spinner = (ops) => ({
             --this.waitCounter;
             return;
         }
-        if(this.mode === 0 && brain.jump) this.yv = -1;
+        if(this.mode === 0 && brain.up) this.yv = -1;
+        else if(this.mode === 4 && brain.down) this.yv = 1;
         else if(this.mode === 2 && brain.right) this.xv = 1;
         else if(this.mode === 6 && brain.left) this.xv = -1;
         else {

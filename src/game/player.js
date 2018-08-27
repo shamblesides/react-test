@@ -1,3 +1,3 @@
-import { froge } from "./guys";
+import { spinner } from "./guys";
 
-export const player = froge({ roomNum: 0, x: 20 });
+export const player = spinner({ roomNum: 0, x: 20 });

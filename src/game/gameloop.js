@@ -10,7 +10,8 @@ export function gameloop({ pad }) {
     const playerBrain = {
         left: buttons.left.pressed,
         right: buttons.right.pressed,
-        jump: buttons.up.pressed,
+        up: buttons.up.pressed,
+        down: buttons.down.pressed,
     };
     player.act(playerBrain);
     player.move();
