@@ -2,8 +2,8 @@ import guy from './guy';
 import { player } from './player';
 import { ROOM_WIDTH } from './rooms';
 
-export const froge = (ops) => ({
-    ...guy(ops),
+export const froge = guy((base) => ({
+    ...base,
     w: 12,
     h: 12,
     y: 20,
@@ -33,10 +33,10 @@ export const froge = (ops) => ({
         else if(this.xa === 0) return this.rand() < .1? 1: 0;
         else return clock%10>=5 ? 2: 0;
     },
-});
+}));
 
-export const bird = (ops) => ({
-    ...guy(ops),
+export const bird = guy((base) => ({
+    ...base,
     w: 8,
     h: 8,
     ya: 0.02,
@@ -65,13 +65,13 @@ export const bird = (ops) => ({
         }
     },
     frame: (clock) => clock%10>=5 ? 11: 10,
-});
+}));
 
-export const aquarium = (ops) => ({
-    ...guy(ops),
-    y: 15 + ops.rand(4,10) * (ops.rand() < .5 ? -1 : 1),
+export const aquarium = guy((base) => ({
+    ...base,
+    y: 15 + base.rand(2,10) * (base.rand() < .5 ? -1 : 1),
     xvmax: 0.5,
-    ...(ops.rand([
+    ...(base.rand([
         {
             w: 9,
             h: 5,
@@ -122,13 +122,13 @@ export const aquarium = (ops) => ({
     frame() {
         return this.firstFrame + (Math.abs(this.xv) < 0.15? 1: 0);
     },
-});
+}));
 
-export const rock = (ops) => ({
-    ...guy(ops),
+export const rock = guy((base) => ({
+    ...base,
     w: 12,
     h: 6,
-    y: 0, //guy.ground().height - 30,
+    y: base.ground().height - 30,
     xfric: 0,
     brain() {
         if(this.isGrounded() && this.rand()<.01) {
@@ -147,16 +147,16 @@ export const rock = (ops) => ({
         if(!this.isGrounded()) return 13;
         return clock%80>=60 && this.xv ? 12: 13;
     },
-});
+}));
 
-export const spinner = (ops) => ({
-    ...guy(ops),
+export const spinner = guy((base) => ({
+    ...base,
     w: 9,
     h: 9,
     xdrag: 0,
     xfric: 0,
     ya: 0,
-    y: 15, //guy.ground().height - 15,
+    y: base.ground().height - 15,
     mode: 0,
     waitCounter: 10,
     brain: (() => {
@@ -191,7 +191,7 @@ export const spinner = (ops) => ({
         if(this.mode === 2 || this.mode === 6) return 23;
         return 22;
     },
-});
+}));
 
 export const guyTypes = [
     froge,

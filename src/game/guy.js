@@ -1,4 +1,3 @@
-import rand from './rand';
 import { sheets } from './sheets';
 import { getRoom, GROUND_WIDTH, ROOM_WIDTH } from './rooms';
 import { mid, clamp } from './math';
@@ -8,8 +7,8 @@ const ids = (function * () {
     for (let i = 0;;) yield `guy${i++}`;
 })();
 
-export default (overrides = {}) => ({
-    id: ids.next().value,
+// export default (overrides = {}) => ({
+const base = {
     roomNum: null,
     w: 12,
     h: 12,
@@ -28,7 +27,6 @@ export default (overrides = {}) => ({
     brain: () => ({}),
     act: () => undefined,
     frame: () => 0,
-    rand: rand.create(),
     // methods
     left() { return this.x - this.w/2; },
     right() { return this.x + this.w/2; },
@@ -74,5 +72,23 @@ export default (overrides = {}) => ({
             flip: this.flip,
         };
     },
-    ...overrides
-})
+};
+
+export default function guy(froge) {
+    return (overrides) => {
+        if (overrides.x == null) throw new Error('Missing guy param: x');
+        if (overrides.roomNum == null) throw new Error('Missing guy param: roomNum');
+        if (overrides.rand == null) throw new Error('Missing guy param: rand');
+
+        const skeleton = {
+            ...base,
+            id: ids.next().value,
+            ...overrides,
+        };
+        return {
+            ...skeleton,
+            ...froge(skeleton),
+            ...overrides,
+        };
+    }
+}
