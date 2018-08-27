@@ -67,33 +67,33 @@ export const bird = guy((base) => ({
     frame: (clock) => clock%10>=5 ? 11: 10,
 }));
 
-export const aquarium = guy((base) => ({
+export const [bigfish, fish, squid] = [
+    {
+        w: 9,
+        h: 5,
+        xdrag: 0.01,
+        ya: 0,
+        firstFrame: 15,
+    },
+    {
+        w: 6,
+        h: 3,
+        xdrag: 0.025,
+        ya: 0,
+        firstFrame: 17,
+    },
+    {
+        w: 12,
+        h: 12,
+        xdrag: 0.01,
+        ya: -0.01,
+        firstFrame: 19,
+    },
+].map(aq => guy((base) => ({
     ...base,
     y: 15 + base.rand(2,10) * (base.rand() < .5 ? -1 : 1),
     xvmax: 0.5,
-    ...(base.rand([
-        {
-            w: 9,
-            h: 5,
-            xdrag: 0.01,
-            ya: 0,
-            firstFrame: 15,
-        },
-        {
-            w: 6,
-            h: 3,
-            xdrag: 0.025,
-            ya: 0,
-            firstFrame: 17,
-        },
-        {
-            w: 12,
-            h: 12,
-            xdrag: 0.01,
-            ya: -0.01,
-            firstFrame: 19,
-        },
-    ])),
+    ...aq,
     brain() {
         if(Math.abs(this.xv) <= this.xdrag) {
             if(this.x > ROOM_WIDTH - 10) return { left: true };
@@ -122,7 +122,7 @@ export const aquarium = guy((base) => ({
     frame() {
         return this.firstFrame + (Math.abs(this.xv) < 0.15? 1: 0);
     },
-}));
+})));
 
 export const rock = guy((base) => ({
     ...base,
@@ -196,9 +196,9 @@ export const spinner = guy((base) => ({
 export const guyTypes = [
     froge,
     bird,
-    aquarium,
-    aquarium,
-    aquarium,
+    fish,
+    bigfish,
+    squid,
     rock,
     spinner,
 ];
