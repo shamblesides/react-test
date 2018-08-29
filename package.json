@@ -17,21 +17,35 @@
         "error",
         4
       ],
-      "react/jsx-indent-props": ["error", 4],
+      "react/jsx-indent-props": [
+        "error",
+        4
+      ],
       "no-plusplus": [
         "off"
       ],
       "eqeqeq": [
         "error",
         "always",
-        { "null": "never" }
+        {
+          "null": "never"
+        }
       ],
-      "eol-last": ["error", "always"],
-      "comma-dangle": ["error", "always-multiline"],
-      "prefer-const": ["error", {
-        "destructuring": "any",
-        "ignoreReadBeforeAssign": false
-      }]
+      "eol-last": [
+        "error",
+        "always"
+      ],
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "prefer-const": [
+        "error",
+        {
+          "destructuring": "any",
+          "ignoreReadBeforeAssign": false
+        }
+      ]
     }
   },
   "eslintIgnore": [
@@ -44,6 +58,8 @@
     "preact-cli": "^2.0.0"
   },
   "dependencies": {
-    "preact": "^8.2.1"
+    "lodash.throttle": "^4.1.1",
+    "preact": "^8.2.1",
+    "resize-observer-polyfill": "^1.5.0"
   }
 }
