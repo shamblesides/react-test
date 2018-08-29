@@ -1,6 +1,6 @@
-import groundPng from './sprites/ground.png'
-import guysPng from './sprites/guys.png'
-import propsPng from './sprites/props.png'
+import groundPng from './sprites/ground.png';
+import guysPng from './sprites/guys.png';
+import propsPng from './sprites/props.png';
 
 export const sheets = [
     {
@@ -26,5 +26,5 @@ export const sheets = [
         spriteHeight: 32,
         originX: 16,
         originY: 32,
-    }
+    },
 ];

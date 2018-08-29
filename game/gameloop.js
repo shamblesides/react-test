@@ -1,5 +1,5 @@
-import { player } from "./player";
-import { ROOM_WIDTH } from "./rooms";
+import { player } from './player';
+import { ROOM_WIDTH } from './rooms';
 
 let clock = 0;
 
@@ -23,13 +23,13 @@ export function gameloop({ pad }) {
     });
 
     // next room?
-    if(player.x === ROOM_WIDTH - 1) {
+    if (player.x === ROOM_WIDTH - 1) {
         ++player.roomNum;
         player.x = 1;
     }
     // previous room??
-    else if(player.x === 0) {
-        if(player.prevRoom()) {
+    else if (player.x === 0) {
+        if (player.prevRoom()) {
             --player.roomNum;
             player.x = ROOM_WIDTH - 2;
         }
@@ -38,7 +38,7 @@ export function gameloop({ pad }) {
     // drawing
     const sprites = [
         ...player.room().sprites(),
-        ...[player, ...player.room().guys].map(guy => guy.sprite(clock))
+        ...[player, ...player.room().guys].map(guy => guy.sprite(clock)),
     ];
 
     // increment clock
@@ -46,4 +46,4 @@ export function gameloop({ pad }) {
 
     // give sprites
     return { sprites };
-};
+}

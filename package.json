@@ -8,10 +8,31 @@
     "build": "preact build",
     "serve": "preact build && preact serve",
     "dev": "preact watch",
-    "lint": "eslint src"
+    "lint": "eslint ."
   },
   "eslintConfig": {
-    "extends": "eslint-config-synacor"
+    "extends": "eslint-config-synacor",
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ],
+      "react/jsx-indent-props": ["error", 4],
+      "no-plusplus": [
+        "off"
+      ],
+      "eqeqeq": [
+        "error",
+        "always",
+        { "null": "never" }
+      ],
+      "eol-last": ["error", "always"],
+      "comma-dangle": ["error", "always-multiline"],
+      "prefer-const": ["error", {
+        "destructuring": "any",
+        "ignoreReadBeforeAssign": false
+      }]
+    }
   },
   "eslintIgnore": [
     "build/*"

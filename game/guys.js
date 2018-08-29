@@ -17,21 +17,21 @@ export const froge = guy((base) => ({
             return {
                 left: (dir === -1),
                 right: (dir === 1),
-                up: (this.rand()<0.005)
-            }
-        }
+                up: (this.rand()<0.005),
+            };
+        };
     })(),
     act(brain) {
-        if(brain.left) { this.xa = -1; this.flip = 'h'; }
-        else if(brain.right) { this.xa = 1; this.flip = ''; }
+        if (brain.left) { this.xa = -1; this.flip = 'h'; }
+        else if (brain.right) { this.xa = 1; this.flip = ''; }
         else this.xa = 0;
-        if(brain.up && this.isGrounded() && this.state === 'standing')
+        if (brain.up && this.isGrounded() && this.state === 'standing')
             this.yv = -2.5;
     },
     frame(clock) {
-        if(!this.isGrounded()) return 3;
-        else if(this.xa === 0) return this.rand() < .1? 1: 0;
-        else return clock%10>=5 ? 2: 0;
+        if (!this.isGrounded()) return 3;
+        else if (this.xa === 0) return this.rand() < .1? 1: 0;
+        return clock%10>=5 ? 2: 0;
     },
 }));
 
@@ -51,16 +51,16 @@ export const bird = guy((base) => ({
         };
     },
     act(brain) {
-        if(brain.right) {
+        if (brain.right) {
             this.xa = 0.8;
             this.flip = '';
         }
-        else if(brain.left) {
+        else if (brain.left) {
             this.xa = -0.8;
             this.flip = 'h';
         }
         else this.xa = 0;
-        if(this.isGrounded() && brain.up) {
+        if (this.isGrounded() && brain.up) {
             this.yv = -1;
         }
     },
@@ -95,27 +95,27 @@ export const [bigfish, fish, squid] = [
     xvmax: 0.5,
     ...aq,
     brain() {
-        if(Math.abs(this.xv) <= this.xdrag) {
-            if(this.x > ROOM_WIDTH - 10) return { left: true };
-            if(this.x < 10) return { right: true };
-            if(this.flip === 'h') return { left: true };
+        if (Math.abs(this.xv) <= this.xdrag) {
+            if (this.x > ROOM_WIDTH - 10) return { left: true };
+            if (this.x < 10) return { right: true };
+            if (this.flip === 'h') return { left: true };
             return { right: true };
         }
         return {};
     },
     act(brain) {
-        if(Math.abs(this.xv) <= this.xdrag) {
-            if(brain.left) {
+        if (Math.abs(this.xv) <= this.xdrag) {
+            if (brain.left) {
                 this.flip = 'h';
                 this.xv = -this.xvmax;
             }
-            else if(brain.right) {
+            else if (brain.right) {
                 this.flip = '';
                 this.xv = this.xvmax;
             }
         }
-        if(this.ya) {
-            if(this.y < 15) this.ya = Math.abs(this.ya);
+        if (this.ya) {
+            if (this.y < 15) this.ya = Math.abs(this.ya);
             else this.ya = -Math.abs(this.ya);
         }
     },
@@ -131,20 +131,20 @@ export const rock = guy((base) => ({
     y: base.ground().height - 30,
     xfric: 0,
     brain() {
-        if(this.isGrounded() && this.rand()<.01) {
-            if(this.x > player.x) return { left: true };
-            else return { right: true };
+        if (this.isGrounded() && this.rand()<.01) {
+            if (this.x > player.x) return { left: true };
+            return { right: true };
         }
         return {};
     },
     act(brain) {
-        if(this.isGrounded()) {
-            if(brain.left) { this.flip = 'h'; this.xv = -0.1; }
-            if(brain.right) { this.flip = ''; this.xv = 0.1; }
+        if (this.isGrounded()) {
+            if (brain.left) { this.flip = 'h'; this.xv = -0.1; }
+            if (brain.right) { this.flip = ''; this.xv = 0.1; }
         }
     },
     frame(clock) {
-        if(!this.isGrounded()) return 13;
+        if (!this.isGrounded()) return 13;
         return clock%80>=60 && this.xv ? 12: 13;
     },
 }));
@@ -166,29 +166,29 @@ export const spinner = guy((base) => ({
                 dir = this.rand(['up','down','left','right']);
             }
             return { [dir]: true };
-        }
+        };
     })(),
     act(brain) {
-        if(this.waitCounter > 0) {
+        if (this.waitCounter > 0) {
             --this.waitCounter;
             return;
         }
-        if(this.mode === 0 && brain.up) this.yv = -1;
-        else if(this.mode === 4 && brain.down) this.yv = 1;
-        else if(this.mode === 2 && brain.right) this.xv = 1;
-        else if(this.mode === 6 && brain.left) this.xv = -1;
+        if (this.mode === 0 && brain.up) this.yv = -1;
+        else if (this.mode === 4 && brain.down) this.yv = 1;
+        else if (this.mode === 2 && brain.right) this.xv = 1;
+        else if (this.mode === 6 && brain.left) this.xv = -1;
         else {
             this.xv = 0;
             this.yv = 0;
             ++this.mode;
-            if(this.mode >= 8) this.mode = 0;
+            if (this.mode >= 8) this.mode = 0;
             this.flip = (this.mode%4 === 3)? 'h': '';
             this.waitCounter = 10;
         }
     },
     frame() {
-        if(this.mode === 0 || this.mode === 4) return 21;
-        if(this.mode === 2 || this.mode === 6) return 23;
+        if (this.mode === 0 || this.mode === 4) return 21;
+        if (this.mode === 2 || this.mode === 6) return 23;
         return 22;
     },
 }));
