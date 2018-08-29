@@ -36,7 +36,7 @@ function makeGenerator(seed) {
 
 function createRand(seed) {
     const gen = makeGenerator(seed);
-    const obj = function(...args) {
+    function obj(...args) {
         const x = gen();
         // float from 0 to <1
         if (args.length === 0) {
@@ -57,7 +57,7 @@ function createRand(seed) {
         }
         // unknown
         throw new Error('invalid arguments for random generator.');
-    };
+    }
     obj.create = function(seed) {
         return createRand(seed == null ? gen() : seed);
     };

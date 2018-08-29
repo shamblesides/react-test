@@ -3,11 +3,6 @@ import { Screen, Loader, Pad } from './lib';
 import { gameloop, binds, sheets, ROOM_HEIGHT, ROOM_WIDTH } from './game';
 
 export default class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { sheets, binds, sprites: [] };
-    }
-
     registerPad(pad) {
         this.setState({ pad });
     }
@@ -15,6 +10,11 @@ export default class App extends Component {
     loop() {
         this.setState({ ...gameloop(this.state) });
         window.requestAnimationFrame(() => this.loop());
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = { sheets, binds, sprites: [] };
     }
 
     render() {
