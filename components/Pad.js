@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'preact';
 
 export default class Pad extends Component {
     constructor(props) {

@@ -1,7 +1,6 @@
-import React from 'react';
 import Sprite from './Sprite';
-import ReactResizeDetector from 'react-resize-detector';
-import './Screen.css'
+// import ReactResizeDetector from 'react-resize-detector';
+import './Screen.css';
 
 const Screen = ({sprites, scale='auto', width=null, height=null, showOverflow=false, hostHeight, hostWidth, backgroundColor=null}) => {
   // no area = no render
@@ -47,7 +46,7 @@ const Screen = ({sprites, scale='auto', width=null, height=null, showOverflow=fa
 };
  
 export default (props) => (
-  <ReactResizeDetector handleWidth handleHeight refreshMode="throttle" refreshRate={15} render={({width, height}) => (
-    <Screen {...props} hostHeight={height} hostWidth={width}/>
-  )}/>
+  // <ReactResizeDetector handleWidth handleHeight refreshMode="throttle" refreshRate={15} render={({width, height}) => (
+    <Screen {...props} hostHeight={300} hostWidth={300}/>
+  // )}/>
 );

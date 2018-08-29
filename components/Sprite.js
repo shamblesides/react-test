@@ -1,4 +1,3 @@
-import React from 'react';
 import { getDataUrl } from '../services/images';
 import './Sprite.css';
 

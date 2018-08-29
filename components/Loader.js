@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'preact';
 import { loadSheets } from '../services/images';
 
 export default class Loader extends Component {
