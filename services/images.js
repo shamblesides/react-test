@@ -5,7 +5,7 @@ function getKey({sheet,sprite=0,scale=1}) {
     return `${sheet.name}:${sprite}:${scale}`;
 }
 
-export async function loadSheets(sheets) {
+export function loadSheets(sheets) {
     const newSheets = sheets.filter(({name}) => !sheetImageDatas.has(name));
 
     const promises = newSheets.map(({name, src, spriteWidth, spriteHeight}) => new Promise((resolve, reject) => {
@@ -18,7 +18,7 @@ export async function loadSheets(sheets) {
         img.src = src;
     }));
 
-    await Promise.all(promises);
+    return Promise.all(promises);
 }
 
 function addImageData(name, img, spriteWidth, spriteHeight) {

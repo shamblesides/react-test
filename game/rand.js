@@ -26,11 +26,11 @@ function getInitialState(seed) {
 }
 
 // generator that takes a seed and yields values 0 <= x < 1
-function * makeGenerator(seed) {
+function makeGenerator(seed) {
     let state = getInitialState(seed);
-    while (true) {
+    return () => {
         const x = Math.sin(state++) * 10000;
-        yield x - Math.floor(x);
+        return x - Math.floor(x);
     }
 }
 
@@ -38,7 +38,7 @@ function createRand(seed) {
     const gen = makeGenerator(seed);
     const obj = function() {
         // console.log(arguments)
-        const x = gen.next().value;
+        const x = gen();
         // float from 0 to <1
         if (arguments.length === 0) {
             return x;
@@ -60,7 +60,7 @@ function createRand(seed) {
         else throw new Error('invalid arguments for random generator.');
     };
     obj.create = function(seed) {
-        return createRand(seed == null ? gen.next().value : seed);
+        return createRand(seed == null ? gen() : seed);
     };
     return obj;
 };

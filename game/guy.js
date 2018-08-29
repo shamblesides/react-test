@@ -3,9 +3,10 @@ import { getRoom, GROUND_WIDTH, ROOM_WIDTH } from './rooms';
 import { mid, clamp } from './math';
 const guysSheet = sheets.find(s => s.name === 'guys');
 
-const ids = (function * () {
-    for (let i = 0;;) yield `guy${i++}`;
-})();
+const nextId = (function() {
+    let i = 0;
+    return () => `guy${i++}`;
+}());
 
 // export default (overrides = {}) => ({
 const base = {
@@ -82,7 +83,7 @@ export default function guy(froge) {
 
         const skeleton = {
             ...base,
-            id: ids.next().value,
+            id: nextId(),
             ...overrides,
         };
         return {
