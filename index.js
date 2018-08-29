@@ -1,10 +1,6 @@
 import { Component } from 'preact';
-import Screen from './components/Screen';
-import Loader from './components/Loader';
-import Pad from './components/Pad';
-import { sheets, binds, gameloop } from './game';
-import { ROOM_HEIGHT, ROOM_WIDTH } from './game/rooms';
-
+import { Screen, Loader, Pad } from './lib';
+import { gameloop, binds, sheets, ROOM_HEIGHT, ROOM_WIDTH } from './game';
 
 export default class App extends Component {
     constructor(props) {
@@ -26,9 +22,7 @@ export default class App extends Component {
             <div style={{width: '100%', height: 600}}>
                 <Pad binds={this.state.binds} register={pad => this.registerPad(pad)} render={() => (
                     <Loader sheets={this.state.sheets} onready={() => window.requestAnimationFrame(() => this.loop())} render={() => (
-                        <div id="ok">
                         <Screen backgroundColor='#45283c' sprites={this.state.sprites} height={ROOM_HEIGHT} width={ROOM_WIDTH}/>
-                        </div>
                     )}/>
                 )}/>
             </div>

@@ -65,4 +65,4 @@ function createRand(seed) {
     return obj;
 };
 
-export default createRand(null);
+export const rand = createRand(null);

@@ -1,4 +1,4 @@
-import guy from './guy';
+import { guy } from './guy';
 import { player } from './player';
 import { ROOM_WIDTH } from './rooms';
 

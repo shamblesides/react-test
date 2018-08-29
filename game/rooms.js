@@ -1,4 +1,4 @@
-import rootRand from "./rand";
+import { rand as rootRand } from "./rand";
 import { guyTypes } from './guys';
 import { mid } from "./math";
 import { sheets } from './sheets';

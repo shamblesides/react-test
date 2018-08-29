@@ -75,7 +75,7 @@ const base = {
     },
 };
 
-export default function guy(froge) {
+export function guy(froge) {
     return (overrides) => {
         if (overrides.x == null) throw new Error('Missing guy param: x');
         if (overrides.roomNum == null) throw new Error('Missing guy param: roomNum');
