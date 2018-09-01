@@ -8,8 +8,8 @@ const nextId = (function() {
     return () => `guy${i++}`;
 }());
 
-// export default (overrides = {}) => ({
 const base = {
+    world: null,
     roomNum: null,
     w: 12,
     h: 12,
@@ -33,12 +33,11 @@ const base = {
     right() { return this.x + this.w/2; },
     top() { return this.y - this.h/2; },
     bottom() { return this.y + this.h/2; },
-    room() { return getRoom(this.roomNum); },
-    nextRoom() { return getRoom(this.roomNum + 1); },
-    prevRoom() { return getRoom(this.roomNum - 1); },
+    room() { return getRoom(this.world, this.roomNum); },
     groundIndex() { return Math.floor(this.x / GROUND_WIDTH); },
     ground() { return this.room().ground[this.groundIndex()]; },
     isGrounded() { return this.ground().height === this.bottom(); },
+    clock() { return this.world.clock; },
     move() {
         // velocity
         this.xv += this.xa;
@@ -63,11 +62,11 @@ const base = {
             this.yv = 0;
         }
     },
-    sprite(clock) {
+    sprite() {
         return {
             key: this.id,
             sheet: guysSheet,
-            sprite: this.frame(clock),
+            sprite: this.frame(this.clock()),
             x: this.x,
             y: this.y,
             flip: this.flip,
@@ -80,6 +79,7 @@ export function guy(froge) {
         if (overrides.x == null) throw new Error('Missing guy param: x');
         if (overrides.roomNum == null) throw new Error('Missing guy param: roomNum');
         if (overrides.rand == null) throw new Error('Missing guy param: rand');
+        if (overrides.world == null) throw new Error('Missing guy param: world');
 
         const skeleton = {
             ...base,

@@ -1,4 +1,3 @@
-import { rand as rootRand } from './rand';
 import { guyTypes } from './guys';
 import { mid } from './math';
 import { sheets } from './sheets';
@@ -12,8 +11,6 @@ export const ROOM_HEIGHT = 53;
 export const MIN_GROUND_HEIGHT = 35;
 export const MAX_GROUND_HEIGHT = 50;
 export const NUM_PROPS = 22;
-
-const rand = rootRand.create(305);
 
 function getSprites(ground) {
     const sprites = [];
@@ -42,7 +39,8 @@ function getSprites(ground) {
     return sprites;
 }
 
-function makeRoom(prevRoom) {
+function makeRoom(world, prevRoom) {
+    const { rand } = world;
     const startGround = (prevRoom) ?
         { ...prevRoom.ground[prevRoom.ground.length-1], props: [] } :
         { height: (MIN_GROUND_HEIGHT + MAX_GROUND_HEIGHT) / 2, frame: 0, props: [] };
@@ -61,21 +59,19 @@ function makeRoom(prevRoom) {
     }
     for (let i = 0.8; rand() < i; i = i * 0.8 - 0.001) {
         const guyType = rand(guyTypes);
-        const guy = { ...guyType({ roomNum, x: rand(40, 80), rand: rand.create() }) };
+        const guy = { ...guyType({ roomNum, x: rand(40, 80), rand: rand.create(), world }) };
         guys.push(guy);
     }
     return { ground, guys, roomNum, sprites: getSprites(ground) };
 }
 
-const rooms = [];
-
-export function getRoom(roomNum) {
+export function getRoom(world, roomNum) {
     if (roomNum < 0) return null;
 
-    if (!rooms[roomNum]) {
-        rooms[roomNum] = makeRoom(roomNum === 0 ? null : getRoom(roomNum - 1));
+    if (!world.rooms.has(roomNum)) {
+        world.rooms.set(roomNum, makeRoom(world, roomNum === 0 ? null : getRoom(world, roomNum - 1)));
     }
 
-    return rooms[roomNum];
+    return world.rooms.get(roomNum);
 }
 

@@ -1,5 +1,4 @@
 import { guy } from './guy';
-import { player } from './player';
 import { ROOM_WIDTH } from './rooms';
 
 export const froge = guy((base) => ({
@@ -28,10 +27,10 @@ export const froge = guy((base) => ({
         if (brain.up && this.isGrounded() && this.state === 'standing')
             this.yv = -2.5;
     },
-    frame(clock) {
+    frame() {
         if (!this.isGrounded()) return 3;
         else if (this.xa === 0) return this.rand() < .1? 1: 0;
-        return clock%10>=5 ? 2: 0;
+        return this.clock()%10>=5 ? 2: 0;
     },
 }));
 
@@ -45,9 +44,9 @@ export const bird = guy((base) => ({
     xvmax: 1,
     brain() {
         return {
-            left: (player.x < this.x - 20),
-            right: (player.x > this.x + 20),
-            up: (!player.isGrounded()),
+            left: (this.world.player.x < this.x - 20),
+            right: (this.world.player.x > this.x + 20),
+            up: (!this.world.player.isGrounded()),
         };
     },
     act(brain) {
@@ -64,7 +63,7 @@ export const bird = guy((base) => ({
             this.yv = -1;
         }
     },
-    frame: (clock) => clock%10>=5 ? 11: 10,
+    frame() { return this.clock()%10>=5 ? 11: 10; },
 }));
 
 export const [bigfish, fish, squid] = [
@@ -131,8 +130,8 @@ export const rock = guy((base) => ({
     y: base.ground().height - 30,
     xfric: 0,
     brain() {
+        if (this.x > this.world.player.x) return { left: true };
         if (this.isGrounded() && this.rand()<.01) {
-            if (this.x > player.x) return { left: true };
             return { right: true };
         }
         return {};
@@ -143,9 +142,9 @@ export const rock = guy((base) => ({
             if (brain.right) { this.flip = ''; this.xv = 0.1; }
         }
     },
-    frame(clock) {
+    frame() {
         if (!this.isGrounded()) return 13;
-        return clock%80>=60 && this.xv ? 12: 13;
+        return this.clock()%80>=60 && this.xv ? 12: 13;
     },
 }));
 

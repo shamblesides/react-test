@@ -1,10 +1,22 @@
-import { player } from './player';
 import { ROOM_WIDTH } from './rooms';
+import { createPlayer } from './player';
+import { rand as rootRand } from './rand';
 
-let clock = 0;
-
-export function gameloop({ pad }) {
+export function gameloop({ pad, player=null }) {
     const buttons = pad.next();
+
+    // is player defined
+    if (!player) {
+        player = createPlayer({ rooms: new Map(), clock: 0, rand: rootRand.create(305) });
+    }
+    // is his world defined
+    if (!player.world) {
+        player.world = {
+            player,
+            rooms: [],
+            clock: 0,
+        };
+    }
 
     // let everything move like itself
     const playerBrain = {
@@ -29,7 +41,7 @@ export function gameloop({ pad }) {
     }
     // previous room??
     else if (player.x === 0) {
-        if (player.prevRoom()) {
+        if (player.roomNum !== 0) {
             --player.roomNum;
             player.x = ROOM_WIDTH - 2;
         }
@@ -38,12 +50,13 @@ export function gameloop({ pad }) {
     // drawing
     const sprites = [
         ...player.room().sprites,
-        ...[player, ...player.room().guys].map(guy => guy.sprite(clock)),
+        player.sprite(),
+        ...player.room().guys.map(guy => guy.sprite()),
     ];
 
     // increment clock
-    ++clock;
+    ++player.world.clock;
 
     // give sprites
-    return { sprites };
+    return { player, sprites };
 }
