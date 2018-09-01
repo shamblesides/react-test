@@ -19,18 +19,33 @@ function hashString(str) {
 
 // get a seed value from a number or a string
 function getInitialState(seed) {
-    if (seed == null) return Math.random();
-    if (typeof seed === 'number') return seed;
+    if (seed == null) return (Math.random() * (2**32)) | 0;
     if (typeof seed === 'string') return hashString(seed);
+    if (typeof seed === 'number') return seed | 0;
     throw new Error('not sure what to do with seed: ' + seed);
+}
+
+// 32 bit xor shift
+function getNextState(x) {
+    x ^= x << 13;
+    x ^= x >> 17;
+    x ^= x << 5;
+    return x;
 }
 
 // generator that takes a seed and yields values 0 <= x < 1
 function makeGenerator(seed) {
-    let state = getInitialState(seed);
+    // initial state
+    let x = getInitialState(seed);
+    // shake it up a bit
+    for (let i = 0; i < 7; ++i) {
+        x = getNextState(x);
+    }
+    // return the generator...
     return () => {
-        const x = Math.sin(state++) * 10000;
-        return x - Math.floor(x);
+        x = getNextState(x);
+        // 32 bit integer to 0 <= x < 1 value
+        return (x>>>1)/(2**31);
     };
 }
 
@@ -59,7 +74,7 @@ function createRand(seed) {
         throw new Error('invalid arguments for random generator.');
     }
     obj.create = function(seed) {
-        return createRand(seed == null ? gen() : seed);
+        return createRand(seed == null ? obj(2**32) : seed);
     };
     return obj;
 }

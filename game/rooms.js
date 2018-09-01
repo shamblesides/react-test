@@ -13,7 +13,7 @@ export const MIN_GROUND_HEIGHT = 35;
 export const MAX_GROUND_HEIGHT = 50;
 export const NUM_PROPS = 22;
 
-const rand = rootRand.create(404);
+const rand = rootRand.create(305);
 
 function sprites() {
     const sprites = [];
@@ -56,10 +56,10 @@ function makeRoom(prevRoom) {
         const height = mid(MIN_GROUND_HEIGHT, h, MAX_GROUND_HEIGHT);
         ground[i] = { height, frame: startGround.frame, props: [] };
     }
-    for (let i = 1; rand() < i; i *= 0.94) {
+    for (let i = 1; rand() < i; i = i * 0.94 - 0.001) {
         ground[rand(ROOM_SEGMENTS)].props.push(rand(NUM_PROPS));
     }
-    for (let i = 0.8; rand() < i; i *= 0.8) {
+    for (let i = 0.8; rand() < i; i = i * 0.8 - 0.001) {
         const guyType = rand(guyTypes);
         const guy = { ...guyType({ roomNum, x: rand(40, 80), rand: rand.create() }) };
         guys.push(guy);
