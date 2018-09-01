@@ -15,10 +15,10 @@ export const NUM_PROPS = 22;
 
 const rand = rootRand.create(305);
 
-function sprites() {
+function getSprites(ground) {
     const sprites = [];
 
-    this.ground.forEach((g, i) => {
+    ground.forEach((g, i) => {
         for (let y = g.height; y < ROOM_HEIGHT; y += 8) {
             sprites.push({
                 key: `ground${i}-${y}`,
@@ -64,7 +64,7 @@ function makeRoom(prevRoom) {
         const guy = { ...guyType({ roomNum, x: rand(40, 80), rand: rand.create() }) };
         guys.push(guy);
     }
-    return { ground, guys, roomNum, sprites };
+    return { ground, guys, roomNum, sprites: getSprites(ground) };
 }
 
 const rooms = [];

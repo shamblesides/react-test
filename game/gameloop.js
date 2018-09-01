@@ -37,7 +37,7 @@ export function gameloop({ pad }) {
 
     // drawing
     const sprites = [
-        ...player.room().sprites(),
+        ...player.room().sprites,
         ...[player, ...player.room().guys].map(guy => guy.sprite(clock)),
     ];
 
