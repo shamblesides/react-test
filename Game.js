@@ -30,7 +30,7 @@ export class Game extends Component {
         return (
             <Pad binds={this.state.binds} register={this.registerPad}>
                 <Loader sheets={this.state.sheets} onready={this.loop}>
-                    <Screen backgroundColor="#45283c" sprites={this.state.sprites} height={ROOM_HEIGHT} width={ROOM_WIDTH} />
+                    <Screen backgroundColor="#45283c" sprites={this.state.sprites} height={ROOM_HEIGHT} width={ROOM_WIDTH} scale={this.props.scale} />
                 </Loader>
             </Pad>
         );
