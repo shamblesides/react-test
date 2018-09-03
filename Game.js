@@ -7,6 +7,7 @@ export class Game extends Component {
 
     registerPad = (pad) => {
         this.setState({ pad });
+        this.loop();
     }
 
     loop = () => {
@@ -28,11 +29,11 @@ export class Game extends Component {
 
     render() {
         return (
-            <Pad binds={this.state.binds} register={this.registerPad}>
-                <Loader sheets={this.state.sheets} onready={this.loop}>
-                    <Screen backgroundColor="#45283c" sprites={this.state.sprites} height={ROOM_HEIGHT} width={ROOM_WIDTH} scale={this.props.scale} />
-                </Loader>
-            </Pad>
+            <Loader sheets={this.state.sheets}>
+                <Screen backgroundColor="#45283c" sprites={this.state.sprites} height={ROOM_HEIGHT} width={ROOM_WIDTH} scale={this.props.scale}>
+                    <Pad binds={this.state.binds} register={this.registerPad} />
+                </Screen>
+            </Loader>
         );
     }
 }
