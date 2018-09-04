@@ -19,13 +19,13 @@ export function gameloop({ pad, player=null }) {
     }
 
     // let everything move like itself
-    const playerBrain = {
-        left: buttons.left.pressed,
-        right: buttons.right.pressed,
-        up: buttons.up.pressed,
-        down: buttons.down.pressed,
-    };
-    player.act(playerBrain);
+    // const playerBrain = {
+    //     left: buttons.left.pressed,
+    //     right: buttons.right.pressed,
+    //     up: buttons.up.pressed,
+    //     down: buttons.down.pressed,
+    // };
+    player.act(player.brain());
     player.move();
 
     player.room().guys.forEach(guy => {
