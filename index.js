@@ -1,24 +1,13 @@
 import { Game } from './Game';
 
+const numGames = 1;
+
 export default () => (
     <div class="some-index-root">
-        <div style="display: inline-block; margin: 5px">
-            <Game scale={2} />
-        </div>
-        <div style="display: inline-block; margin: 5px">
-            <Game scale={2} />
-        </div>
-        <div style="display: inline-block; margin: 5px">
-            <Game scale={2} />
-        </div>
-        <div style="display: inline-block; margin: 5px">
-            <Game scale={2} />
-        </div>
-        <div style="display: inline-block; margin: 5px">
-            <Game scale={2} />
-        </div>
-        <div style="display: inline-block; margin: 5px">
-            <Game scale={2} />
-        </div>
+        {Array(numGames).fill(0).map(() => (
+            <div style="display: inline-block; margin: 5px">
+                <Game scale={2} />
+            </div>
+        ))}
     </div>
 );
