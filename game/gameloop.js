@@ -49,7 +49,7 @@ export function gameloop({ pad, player=null }) {
 
     // drawing
     const sprites = [
-        ...player.room().sprites,
+        player.room().sprites,
         player.sprite(),
         ...player.room().guys.map(guy => guy.sprite()),
     ];

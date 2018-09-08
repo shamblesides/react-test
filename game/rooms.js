@@ -18,7 +18,6 @@ function getSprites(ground) {
     ground.forEach((g, i) => {
         for (let y = g.height; y < ROOM_HEIGHT; y += 8) {
             sprites.push({
-                key: `ground${i}-${y}`,
                 sheet: groundSheet,
                 sprite: 0,
                 x: i*4,
@@ -26,8 +25,7 @@ function getSprites(ground) {
             });
         }
         sprites.push(
-            ...g.props.map((p, pIdx) => ({
-                key: `prop${i}-${pIdx}`,
+            ...g.props.map(p => ({
                 sheet: propsSheet,
                 sprite: p,
                 x: (i+0.5)*GROUND_WIDTH,
@@ -36,7 +34,11 @@ function getSprites(ground) {
         );
     });
 
-    return sprites;
+    return {
+        sprites,
+        width: ROOM_WIDTH,
+        height: ROOM_HEIGHT,
+    };
 }
 
 function makeRoom(world, prevRoom) {
