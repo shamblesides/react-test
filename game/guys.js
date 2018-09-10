@@ -130,8 +130,8 @@ export const rock = guy((base) => ({
     y: base.ground().height - 30,
     xfric: 0,
     brain() {
-        if (this.x > this.world.player.x) return { left: true };
         if (this.isGrounded() && this.rand()<.01) {
+            if (this.x > this.world.player.x) return { left: true };
             return { right: true };
         }
         return {};
