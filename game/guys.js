@@ -1,5 +1,6 @@
 import { guy } from './guy';
 import { ROOM_WIDTH } from './rooms';
+import { mid } from './math';
 
 export const froge = guy((base) => ({
     ...base,
@@ -192,6 +193,60 @@ export const spinner = guy((base) => ({
     },
 }));
 
+export const blink = guy((base) => ({
+    ...base,
+    w: 9,
+    h: 9,
+    xdrag: 0,
+    xfric: 0,
+    ya: 0,
+    y: base.ground().height - 10,
+    mode: 0,
+    waitCounter: 0,
+    brain() {
+        if (this.rand()<0.01) {
+            const dir1 = this.rand(['up','down']);
+            const dir2 = this.rand(['left','right']);
+            return { [dir1]: true, [dir2]: true };
+        } else {
+            return {};
+        }
+    },
+    act({ up=false, down=false, left=false, right=false }) {
+        if (this.waitCounter === 34) {
+            if (this.teleportX != null) this.x = this.teleportX;
+            if (this.teleportY != null) this.y = this.teleportY;
+            this.x = mid(this.x, 0, ROOM_WIDTH - 1);
+            this.y = mid(this.y, 0, this.ground().height - this.h/2);
+            this.teleportX = null;
+            this.teleportY = null;
+        }
+        if (this.waitCounter > 0) {
+            --this.waitCounter;
+            return;
+        }
+        if (up || down || left || right) {
+            this.waitCounter = 50;
+            if (up) this.teleportY = this.y - 10;
+            if (down) this.teleportY = this.y + 10;
+            if (left) this.teleportX = this.x - 20;
+            if (right) this.teleportX = this.x + 20;
+        }
+    },
+    frame() {
+        if (this.waitCounter > 46) return 25;
+        if (this.waitCounter > 42) return 26;
+        if (this.waitCounter > 38) return 27;
+        if (this.waitCounter > 36) return 28;
+        if (this.waitCounter > 32) return 29;
+        if (this.waitCounter > 28) return 28;
+        if (this.waitCounter > 26) return 27;
+        if (this.waitCounter > 22) return 26;
+        if (this.waitCounter > 18) return 25;
+        return 24;
+    },
+}));
+
 export const guyTypes = [
     bird,
     fish,
@@ -199,4 +254,5 @@ export const guyTypes = [
     squid,
     rock,
     spinner,
+    blink,
 ];
