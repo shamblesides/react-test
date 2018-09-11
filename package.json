@@ -58,8 +58,6 @@
     "preact-cli": "^2.0.0"
   },
   "dependencies": {
-    "lodash.throttle": "^4.1.1",
-    "preact": "^8.2.1",
-    "resize-observer-polyfill": "^1.5.0"
+    "preact": "^8.2.1"
   }
 }
