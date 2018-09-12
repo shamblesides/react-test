@@ -1,6 +1,8 @@
 import { Game } from './Game';
 import './index.css';
 
+window.onerror = alert;
+
 const numGames = 1;
 
 export default () => (
