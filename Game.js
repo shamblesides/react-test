@@ -1,14 +1,11 @@
 import { Component } from 'preact';
-import { Screen, Loader, Pad } from './lib';
+import { Screen, Loader, pad as padFactory } from './lib';
 import { gameloop, binds, sheets, ROOM_HEIGHT, ROOM_WIDTH } from './game';
 
 export class Game extends Component {
     destroyed = false;
-
-    registerPad = (pad) => {
-        this.setState({ pad });
-        this.loop();
-    }
+    pad = null;
+    padElementAttributes = null;
 
     loop = () => {
         if (this.destroyed) return;
@@ -20,7 +17,10 @@ export class Game extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { sheets, binds, sprites: [] };
+        const { elementAttributes, pad } = padFactory(binds);
+        this.padElementAttributes = elementAttributes;
+        this.state = { pad, sheets, sprites: [] };
+        this.loop();
     }
 
     componentWillUnmount() {
@@ -30,9 +30,7 @@ export class Game extends Component {
     render() {
         return (
             <Loader sheets={this.state.sheets}>
-                <Screen backgroundColor="#45283c" sprites={this.state.sprites} height={ROOM_HEIGHT} width={ROOM_WIDTH} scale={this.props.scale}>
-                    <Pad binds={this.state.binds} register={this.registerPad} />
-                </Screen>
+                <Screen backgroundColor="#45283c" sprites={this.state.sprites} height={ROOM_HEIGHT} width={ROOM_WIDTH} scale={this.props.scale} {...this.padElementAttributes} />
             </Loader>
         );
     }
