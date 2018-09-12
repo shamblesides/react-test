@@ -1,7 +1,7 @@
 import { Game } from './Game';
 import './index.css';
 
-window.onerror = alert;
+if (typeof window !== 'undefined') window.onerror = alert;
 
 const numGames = 1;
 
