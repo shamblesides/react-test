@@ -24,6 +24,7 @@ const base = {
     xvmax: 2,
     yvmax: 4,
     flip: '',
+    colors: null,
     // behavior
     brain: () => ({}),
     act: () => undefined,
@@ -70,6 +71,7 @@ const base = {
             x: this.x,
             y: this.y,
             flip: this.flip,
+            colors: this.colors,
         };
     },
 };
