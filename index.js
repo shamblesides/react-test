@@ -1,14 +1,8 @@
-import { Game } from './Game';
+import { cancan } from './lib';
+import gameStuff from './game';
 import './index.css';
 
-if (typeof window !== 'undefined') window.onerror = alert;
+window.onerror = alert;
 
-const numGames = 1;
-
-export default () => (
-    <div class="some-index-root" style={{ height: '100%' }}>
-        {Array(numGames).fill(0).map(() => (
-            <Game scale={'auto'} />
-        ))}
-    </div>
-);
+const { el } = cancan({ scale: 'auto', ...gameStuff });
+document.querySelector('body').appendChild(el);
