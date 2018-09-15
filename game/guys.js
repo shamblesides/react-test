@@ -208,9 +208,8 @@ export const blink = guy((base) => ({
             const dir1 = this.rand(['up','down']);
             const dir2 = this.rand(['left','right']);
             return { [dir1]: true, [dir2]: true };
-        } else {
-            return {};
         }
+        return {};
     },
     act({ up=false, down=false, left=false, right=false }) {
         if (this.waitCounter === 34) {
