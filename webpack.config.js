@@ -1,9 +1,11 @@
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './index.js',
     plugins: [
         new HtmlWebpackPlugin(),
+        new CleanWebpackPlugin(),
     ],
     module: {
         rules: [
