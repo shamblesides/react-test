@@ -1,5 +1,6 @@
 canvas.cancan { 
     object-fit: contain;
+    object-position: center top;
     touch-action: none;
     background-color: black;
     /* https://stackoverflow.com/questions/14068103/disable-antialising-when-scaling-images */
