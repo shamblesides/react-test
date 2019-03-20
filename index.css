@@ -6,9 +6,10 @@ body {
     display: flex;
     flex-direction: column;
 }
-#debug {
+/* #debug {
     font-family: monospace;
     background-color: black;
     color: #0f0;
     font-size: 6vmin;
-}
+    display: none;
+} */
