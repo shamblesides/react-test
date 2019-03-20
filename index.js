@@ -4,5 +4,7 @@ import './index.css';
 
 window.onerror = alert;
 
-const { el } = cancan({ scale: 'auto', frameSkip: 8, ...gameStuff });
+const frameSkip = +localStorage.getItem('frameskip') || 1;
+
+const { el } = cancan({ scale: 'auto', frameSkip, ...gameStuff });
 document.querySelector('body').appendChild(el);
