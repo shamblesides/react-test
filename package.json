@@ -11,45 +11,20 @@
     "lint": "eslint ."
   },
   "eslintConfig": {
-    "extends": "eslint-config-synacor",
-    "rules": {
-      "indent": [
-        "error",
-        4
-      ],
-      "react/jsx-indent-props": [
-        "error",
-        4
-      ],
-      "no-plusplus": [
-        "off"
-      ],
-      "eqeqeq": [
-        "error",
-        "always",
-        {
-          "null": "never"
-        }
-      ],
-      "eol-last": [
-        "error",
-        "always"
-      ],
-      "comma-dangle": [
-        "error",
-        "always-multiline"
-      ],
-      "prefer-const": [
-        "error",
-        {
-          "destructuring": "any",
-          "ignoreReadBeforeAssign": false
-        }
-      ]
+    "extends": "eslint:recommended",
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "env": {
+      "es6": true,
+      "browser": true
     }
   },
   "eslintIgnore": [
-    "dist/*"
+    "dist/*",
+    "webpack.config.js"
   ],
   "dependencies": {
     "@babel/core": "^7.3.4",
