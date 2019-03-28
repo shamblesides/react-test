@@ -1,7 +1,6 @@
 import './polyfills';
 import { cancan } from './lib';
 import gameStuff from './game';
-// import './index.css';
 
 window.onerror = alert;
 
