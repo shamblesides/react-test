@@ -7,6 +7,12 @@ module.exports = {
         new HtmlWebpackPlugin({ title: 'GAME' }),
         new CleanWebpackPlugin(),
     ],
+    stats: {
+        modules: false,
+        entrypoints: false,
+        version: false,
+        children: false,
+    },
     module: {
         rules: [
             {
