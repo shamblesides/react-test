@@ -3,9 +3,7 @@ import gameStuff from './game';
 
 window.onerror = alert;
 
-const frameSkip = +localStorage.getItem('frameskip') || 1;
-
-const { el } = cancan({ scale: 'auto', frameSkip, ...gameStuff });
+const { el } = cancan({ scale: 'auto', ...gameStuff });
 document.querySelector('body').appendChild(el);
 
 document.querySelector('html').style.cssText = `
