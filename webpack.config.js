@@ -1,11 +1,15 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const StatsWebpackPlugin = require('stats-webpack-plugin');
 
 module.exports = {
     entry: './index.js',
     plugins: [
         new HtmlWebpackPlugin({ title: 'GAME' }),
         new CleanWebpackPlugin(),
+        new StatsWebpackPlugin('stats.json', {
+            chunkModules: true
+        })
     ],
     stats: {
         modules: false,
