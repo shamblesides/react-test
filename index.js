@@ -3,7 +3,7 @@ import gameStuff from './game';
 
 window.onerror = alert;
 
-const frameSkip = +localStorage.getItem('frameskip') || 1;
+const frameSkip = +localStorage.getItem('frameskip') || 0;
 
 const { el } = cancan({ scale: 'auto', frameSkip, ...gameStuff });
 document.querySelector('body').appendChild(el);
