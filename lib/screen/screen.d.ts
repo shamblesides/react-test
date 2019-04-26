@@ -9,6 +9,8 @@ type Sheet = {
     src: string;
     spriteWidth: number;
     spriteHeight: number;
+    originX?: number;
+    originY?: number;
 }
 
 type BasicSprite = {
