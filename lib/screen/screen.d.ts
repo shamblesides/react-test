@@ -13,38 +13,26 @@ type Sheet = {
     originY?: number;
 }
 
-type BasicSprite = {
-    sheet: Sheet;
-    sprite: number;
-    x: number;
-    y: number;
-    flip: string = null;
-    colors: string[] = null;
-    cropTop: number = 0;
-    cropBottom: number = 0;
-    cropLeft: number = 0;
-    cropRight: number = 0;
-}
+type Drawable = {
+    ready?: () => Promise<void>,
+    draw: (CanvasRenderingContext2D) => void,
+};
 
-type CompositeSprite = {
-    sprites: BasicSprite[];
-    width: number;
-    height: number;
-    x: number;
-    y: number;
+type PositionableDrawable = {
+    at: (x: number, y: number) => Drawable
 }
-
-type FillSprite = {
-    fill: string;
-    width: number;
-    height: number;
-    x: number;
-    y: number;
-}
-
-type Sprite = BasicSprite | CompositeSprite | FillSprite;
 
 export declare function screen(args: ScreenArgs): {
-    el: HTMLCanvasElement,
-    updateScreen(sprites: Sprite[]): Promise<void>
+    canvas: HTMLCanvasElement,
+    update(sprites: Drawable[]): Promise<void>
 }
+
+export declare function sprite(
+    sheet: Sheet, sprite: number, flip?: string, colors?: string[], crop?: {left: number, right: number, top: number, bottom: number}
+): PositionableDrawable
+
+export declare function multi(
+    width: number, height: number, sprites: Drawable[]
+): PositionableDrawable
+
+export declare function fill(color: string, x: number, y: number, width: number, height: number): Drawable

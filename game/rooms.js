@@ -1,8 +1,23 @@
 import { guyTypes } from './guys';
 import { mid } from './math';
-import { sheets } from './sheets';
-const groundSheet = sheets.find(s => s.name === 'ground');
-const propsSheet = sheets.find(s => s.name === 'props');
+import groundPng from './sprites/ground.png';
+import propsPng from './sprites/props.png';
+import { multi, sprite } from '../lib';
+
+const groundSheet = {
+    src: groundPng,
+    spriteWidth: 4,
+    spriteHeight: 8,
+    originX: 0,
+    originY: 0,
+};
+const propsSheet = {
+    src: propsPng,
+    spriteWidth: 32,
+    spriteHeight: 32,
+    originX: 16,
+    originY: 32,
+};
 
 export const ROOM_SEGMENTS = 22;
 export const GROUND_WIDTH = 4;
@@ -17,28 +32,14 @@ function getSprites(ground) {
 
     ground.forEach((g, i) => {
         for (let y = g.height; y < ROOM_HEIGHT; y += 8) {
-            sprites.push({
-                sheet: groundSheet,
-                sprite: 0,
-                x: i*4,
-                y,
-            });
+            sprites.push(sprite(groundSheet, 0).at(i*4, y));
         }
         sprites.push(
-            ...g.props.map(p => ({
-                sheet: propsSheet,
-                sprite: p,
-                x: (i+0.5)*GROUND_WIDTH,
-                y: g.height + 8,
-            }))
+            ...g.props.map(p => sprite(propsSheet, p).at((i+0.5)*GROUND_WIDTH, g.height+8))
         );
     });
 
-    return {
-        sprites,
-        width: ROOM_WIDTH,
-        height: ROOM_HEIGHT,
-    };
+    return multi(ROOM_WIDTH, ROOM_HEIGHT, sprites).at(0, 0);
 }
 
 function makeRoom(world, prevRoom) {

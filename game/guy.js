@@ -1,7 +1,15 @@
-import { sheets } from './sheets';
 import { getRoom, GROUND_WIDTH, ROOM_WIDTH } from './rooms';
 import { mid, clamp } from './math';
-const guysSheet = sheets.find(s => s.name === 'guys');
+import guysPng from './sprites/guys.png';
+import { sprite } from '../lib';
+
+const guysSheet = {
+    src: guysPng,
+    spriteWidth: 16,
+    spriteHeight: 16,
+    originX: 8,
+    originY: 8,
+};
 
 const nextId = (function() {
     let i = 0;
@@ -64,15 +72,7 @@ const base = {
         }
     },
     sprite() {
-        return {
-            key: this.id,
-            sheet: guysSheet,
-            sprite: this.frame(this.clock()),
-            x: this.x,
-            y: this.y,
-            flip: this.flip,
-            colors: this.colors,
-        };
+        return sprite(guysSheet, this.frame(this.clock()), this.flip, this.colors).at(this.x, this.y)
     },
 };
 

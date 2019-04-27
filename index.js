@@ -1,12 +1,11 @@
-import { cancan } from './lib';
-import gameStuff from './game';
+import game from './game';
 
-window.onerror = alert;
+// window.onerror = alert;
 
 const frameSkip = +localStorage.getItem('frameskip') || 0;
 
-const { el } = cancan({ scale: 'auto', frameSkip, ...gameStuff });
-document.querySelector('body').appendChild(el);
+const { canvas } = game({ frameSkip });
+document.querySelector('body').appendChild(canvas);
 
 document.querySelector('html').style.cssText = `
 height: 100%;
