@@ -2,7 +2,6 @@ type ScreenArgs = {
     scale?: 'auto' | number = 'auto';
     width: number = 160;
     height: number = 144;
-    backgroundColor: string = '#000000';
 }
 
 type Sheet = {
@@ -37,7 +36,7 @@ export declare function multi(
     width: number, height: number, sprites: Drawable[]
 ): PositionableDrawable
 
-export declare function fill(color: string, x: number, y: number, width: number, height: number): Drawable
+export declare function fill(color: string, x?: number, y?: number, width?: number, height?: number): Drawable
 
 export declare function flip(flip: string): SpriteTransform
 

@@ -2,7 +2,7 @@ import { guyTypes } from './guys';
 import { mid } from './math';
 import groundPng from './sprites/ground.png';
 import propsPng from './sprites/props.png';
-import { multi, sprite } from '../lib';
+import { multi, sprite, fill } from '../lib';
 
 const groundSheet = {
     src: groundPng,
@@ -27,8 +27,10 @@ export const MIN_GROUND_HEIGHT = 35;
 export const MAX_GROUND_HEIGHT = 50;
 export const NUM_PROPS = 22;
 
+const backgroundColor = '#45283c';
+
 function getSprites(ground) {
-    const sprites = [];
+    const sprites = [fill(backgroundColor)];
 
     ground.forEach((g, i) => {
         for (let y = g.height; y < ROOM_HEIGHT; y += 8) {
