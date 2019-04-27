@@ -22,13 +22,15 @@ type PositionableDrawable = {
     at: (x: number, y: number) => Drawable
 }
 
+type SpriteTransform = (spriteCanvas: HTMLCanvasElement, sheet: Sheet, sprite: number) => HTMLCanvasElement
+
 export declare function screen(args: ScreenArgs): {
     canvas: HTMLCanvasElement,
     update(sprites: Drawable[]): Promise<void>
 }
 
 export declare function sprite(
-    sheet: Sheet, sprite: number, flip?: string, colors?: string[], crop?: {left: number, right: number, top: number, bottom: number}
+    sheet: Sheet, sprite: number, ...transforms: SpriteTransform[]
 ): PositionableDrawable
 
 export declare function multi(
@@ -36,3 +38,9 @@ export declare function multi(
 ): PositionableDrawable
 
 export declare function fill(color: string, x: number, y: number, width: number, height: number): Drawable
+
+export declare function flip(flip: string): SpriteTransform
+
+export declare function recolor(colors: string[]): SpriteTransform
+
+export declare function crop(crop: { top: boolean, bottom: boolean, left: boolean, right: boolean }): SpriteTransform

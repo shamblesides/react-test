@@ -1,7 +1,7 @@
 import { getRoom, GROUND_WIDTH, ROOM_WIDTH } from './rooms';
 import { mid, clamp } from './math';
 import guysPng from './sprites/guys.png';
-import { sprite } from '../lib';
+import { sprite, recolor, flip } from '../lib';
 
 const guysSheet = {
     src: guysPng,
@@ -72,7 +72,10 @@ const base = {
         }
     },
     sprite() {
-        return sprite(guysSheet, this.frame(this.clock()), this.flip, this.colors).at(this.x, this.y)
+        const transforms = [];
+        if (this.flip) transforms.push(flip(this.flip));
+        if (this.colors) transforms.push(recolor(this.colors));
+        return sprite(guysSheet, this.frame(this.clock()), ...transforms).at(this.x, this.y)
     },
 };
 
