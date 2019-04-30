@@ -1,7 +1,8 @@
 import { ROOM_WIDTH, ROOM_HEIGHT } from './rooms';
 import { createPlayer } from './player';
 import { rand as rootRand } from './rand';
-import { multi, letters } from '../lib';
+import multi from '../lib/gfx/multi';
+import letters from '../lib/gfx/letters';
 import px6 from '../lib/fonts/px6';
 
 export function worldview() {
