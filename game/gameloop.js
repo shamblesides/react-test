@@ -1,9 +1,13 @@
-import { ROOM_WIDTH } from './rooms';
+import { ROOM_WIDTH, ROOM_HEIGHT } from './rooms';
 import { createPlayer } from './player';
 import { rand as rootRand } from './rand';
+import { multi, letters } from '../lib';
+import px6 from '../lib/fonts/px6';
 
 export function worldview() {
     const player = createPlayer({ rooms: new Map(), clock: 0, rand: rootRand.create(305) });
+
+    const helloFrog = letters(px6, 'hello frog').single().at(1, 0);
 
     return function gameloop({ pad }) {
         const buttons = pad.next();
@@ -37,17 +41,17 @@ export function worldview() {
             }
         }
 
-        // drawing
-        const sprites = [
+        // main game panel
+        const pane = multi(ROOM_WIDTH, ROOM_HEIGHT, [
             player.room().sprites,
             player.sprite(),
             ...player.room().guys.map(guy => guy.sprite()),
-        ];
+        ]).at(1, 6);
 
         // increment clock
         ++player.world.clock;
 
         // give sprites
-        return { sprites };
+        return { sprites: [pane, helloFrog] };
     };
 };

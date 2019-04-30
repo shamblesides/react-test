@@ -12,14 +12,14 @@ type Sheet = {
     originY?: number;
 }
 
-type Drawable = {
-    ready?: () => Promise<void>,
-    draw: (CanvasRenderingContext2D) => void,
+declare class Drawable {
+    x: number;
+    y: number;
+    at(x: number, y: number): this;
+    move(x: number, y: number): this;
+    wait?: () => Promise<void>;
+    draw: (CanvasRenderingContext2D) => void;
 };
-
-type PositionableDrawable = {
-    at: (x: number, y: number) => Drawable
-}
 
 type SpriteTransform = (spriteCanvas: HTMLCanvasElement, sheet: Sheet, sprite: number) => HTMLCanvasElement
 
@@ -30,11 +30,18 @@ export declare function screen(args: ScreenArgs): {
 
 export declare function sprite(
     sheet: Sheet, sprite: number, ...transforms: SpriteTransform[]
-): PositionableDrawable
+): Drawable
 
 export declare function multi(
     width: number, height: number, sprites: Drawable[]
-): PositionableDrawable
+): Drawable
+
+export declare function letters(
+    font: Sheet, text: string, maxCols: number = Infinity, maxRows: number = Infinity
+): {
+    single(): Drawable,
+    separately(): { cols: number, rows: number, letters: Drawable[] }
+}
 
 export declare function fill(color: string, x?: number, y?: number, width?: number, height?: number): Drawable
 
