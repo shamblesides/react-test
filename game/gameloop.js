@@ -9,9 +9,7 @@ export function worldview() {
 
     const helloFrog = letters(px6, 'hello frog').single().at(1, 0);
 
-    return function gameloop({ pad }) {
-        const buttons = pad.next();
-
+    return function gameloop({ buttons }) {
         // let everything move like itself
         const playerBrain = {
             left: buttons.left.pressed,
