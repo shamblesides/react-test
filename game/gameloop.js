@@ -7,9 +7,13 @@ import letters from '../lib/gfx/letters';
 import px6 from '../lib/fonts/px6';
 
 export function worldview() {
-    const player = createPlayer({ rooms: new Map(), clock: 0, rand: rootRand.create(305) });
+    const seed = (Math.random()*100000)|0;
+    const player = createPlayer({ rooms: new Map(), clock: 0, rand: rootRand.create(seed) });
 
-    const helloFrog = letters(px6, 'hello frog').single().at(1, 0);
+    const helloFrog = multi(90, 6, [
+        fill('black'),
+        letters(px6, 'world '+seed).single().at(1, 0)
+    ]);
 
     return function gameloop({ buttons }) {
         // let everything move like itself
