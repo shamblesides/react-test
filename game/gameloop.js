@@ -48,8 +48,8 @@ export function worldview() {
         // player get hurt
         const killer = player.room().guys.find(guy => (
             guy !== player &&
-            Math.abs(guy.x - player.x) < (player.w + guy.w) /2 &&
-            Math.abs(guy.y - player.y) < (player.h + guy.h) /2 
+            Math.abs(guy.x - player.x) < (player.w + guy.w) /2 - 2 &&
+            Math.abs(guy.y - player.y) < (player.h + guy.h) /2 - 2
         ));
 
         const roomSprites = killer ?
