@@ -3,4 +3,5 @@ export const binds = {
     left: ['ArrowLeft', 'a'],
     right: ['ArrowRight', 'd'],
     down: ['ArrowDown', 's'],
+    ok: [' ', 'z', 'Enter', 'Escape']
 };

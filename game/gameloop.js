@@ -2,6 +2,7 @@ import { ROOM_WIDTH, ROOM_HEIGHT } from './rooms';
 import { createPlayer } from './player';
 import { rand as rootRand } from './rand';
 import multi from '../lib/gfx/multi';
+import fill from '../lib/gfx/fill';
 import letters from '../lib/gfx/letters';
 import px6 from '../lib/fonts/px6';
 
@@ -40,17 +41,36 @@ export function worldview() {
             }
         }
 
+        // player get hurt
+        const killer = player.room().guys.find(guy => (
+            guy !== player &&
+            Math.abs(guy.x - player.x) < (player.w + guy.w) /2 &&
+            Math.abs(guy.y - player.y) < (player.h + guy.h) /2 
+        ));
+
+        const roomSprites = killer ?
+            [fill('white'), player.sprite(), killer.sprite()] :
+            [
+                player.room().sprites,
+                player.sprite(),
+                ...player.room().guys.map(guy => guy.sprite()),
+            ];
+
         // main game panel
-        const pane = multi(ROOM_WIDTH, ROOM_HEIGHT, [
-            player.room().sprites,
-            player.sprite(),
-            ...player.room().guys.map(guy => guy.sprite()),
-        ]).at(1, 6);
+        const pane = multi(ROOM_WIDTH, ROOM_HEIGHT, roomSprites).at(1, 6);
 
         // increment clock
         ++player.world.clock;
 
         // give sprites
-        return { sprites: [pane, helloFrog] };
+        return { sprites: [pane, helloFrog], gameloop: killer ? dead : null };
     };
 };
+
+function dead({ buttons }) {
+    if (buttons.ok.justPressed) {
+        return { gameloop: worldview() };
+    } else {
+        return {}
+    }
+}
