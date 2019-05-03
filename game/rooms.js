@@ -2,9 +2,9 @@ import { guyTypes } from './guys';
 import { mid } from './math';
 import groundPng from './sprites/ground.png';
 import propsPng from './sprites/props.png';
-import fill from '../lib/gfx/fill';
-import multi from '../lib/gfx/multi';
-import sprite from '../lib/gfx/sprite';
+import {fill} from '../lib/gfx/fill';
+import {multi} from '../lib/gfx/multi';
+import {sprite} from '../lib/gfx/sprite';
 
 const groundSheet = {
     src: groundPng,
