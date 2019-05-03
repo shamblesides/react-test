@@ -253,5 +253,5 @@ export const guyTypes = [
     squid,
     rock,
     spinner,
-    blink,
+    // blink,
 ];
