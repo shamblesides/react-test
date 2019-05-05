@@ -33,15 +33,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env'],
-                        plugins: [
-                            require('@babel/plugin-syntax-dynamic-import'),
-                        ],
-                    },
-                },
+                use: 'babel-loader',
             },
         ],
     },
