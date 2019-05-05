@@ -14,6 +14,11 @@ export default {
     babel(),
     json(),
     url(),
-    terser(),
+    terser({
+      module: true,
+      compress: {
+        arrows: false // for safari 9.3
+      }
+    }),
   ]
 };
