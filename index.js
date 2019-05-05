@@ -1,5 +1,7 @@
 import run from './game/index';
 
-window.onerror = alert;
+window.onerror = function() {
+    alert('Game broke! ' + [].join.call(arguments, ' | '))
+};
 
 run();
