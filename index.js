@@ -1,4 +1,4 @@
-import run from './game';
+import run from './game/index';
 
 window.onerror = alert;
 
