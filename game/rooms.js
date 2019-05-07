@@ -4,10 +4,10 @@ import groundPng from './sprites/ground.png';
 import propsPng from './sprites/props.png';
 import {fill} from '../lib/gfx/fill';
 import {multi} from '../lib/gfx/multi';
-import { gridSheet } from '../lib/gfx/gridsheet';
+import { gridSheet, img } from '../lib/gfx/gridsheet';
 
-const groundSheet = gridSheet(groundPng, 4, 8);
-const propsSheet = gridSheet(propsPng, 32, 32);
+const groundImg = img(groundPng);
+const propsSheet = gridSheet(img(propsPng), 32, 32);
 
 export const ROOM_SEGMENTS = 22;
 export const GROUND_WIDTH = 4;
@@ -24,7 +24,7 @@ function getSprites(ground) {
 
     ground.forEach((g, i) => {
         for (let y = g.height; y < ROOM_HEIGHT; y += 8) {
-            sprites.push(groundSheet.sprite(0).at(i*4, y));
+            sprites.push(groundImg.at(i*4, y));
         }
         sprites.push(
             ...g.props.map(p => propsSheet.sprite(p).at((i+0.5)*GROUND_WIDTH - 16, g.height - 24))
