@@ -1,17 +1,11 @@
 import { getRoom, GROUND_WIDTH, ROOM_WIDTH } from './rooms';
 import { mid, clamp } from './math';
 import guysPng from './sprites/guys.png';
-import {sprite} from '../lib/gfx/sprite';
 import {recolor} from '../lib/transform/recolor';
 import {flip} from '../lib/transform/flip';
+import { gridSheet } from '../lib/gfx/gridsheet';
 
-const guysSheet = {
-    src: guysPng,
-    spriteWidth: 16,
-    spriteHeight: 16,
-    originX: 8,
-    originY: 8,
-};
+const guysSheet = gridSheet(guysPng, 16, 16);
 
 const nextId = (function() {
     let i = 0;
@@ -77,7 +71,7 @@ const base = {
         const transforms = [];
         if (this.flip) transforms.push(flip(this.flip));
         if (this.colors) transforms.push(recolor(this.colors));
-        return sprite(guysSheet, this.frame(this.clock()), ...transforms).at(this.x, this.y)
+        return guysSheet.sprite(this.frame(this.clock()), ...transforms).at(this.x - 8, this.y - 8)
     },
 };
 
