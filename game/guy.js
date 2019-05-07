@@ -3,9 +3,9 @@ import { mid, clamp } from './math';
 import guysPng from './sprites/guys.png';
 import {recolor} from '../lib/transform/recolor';
 import {flip} from '../lib/transform/flip';
-import { gridSheet, img } from '../lib/gfx/gridsheet';
+import { gridSheet } from '../lib/gfx/gridsheet';
 
-const guysSheet = gridSheet(img(guysPng), 16, 16);
+const guysSheet = gridSheet(guysPng, 16, 16);
 
 const nextId = (function() {
     let i = 0;

@@ -4,10 +4,11 @@ import groundPng from './sprites/ground.png';
 import propsPng from './sprites/props.png';
 import {fill} from '../lib/gfx/fill';
 import {multi} from '../lib/gfx/multi';
-import { gridSheet, img } from '../lib/gfx/gridsheet';
+import { gridSheet } from '../lib/gfx/gridsheet';
+import { img } from '../lib/gfx/img';
 
 const groundImg = img(groundPng);
-const propsSheet = gridSheet(img(propsPng), 32, 32);
+const propsSheet = gridSheet(propsPng, 32, 32);
 
 export const ROOM_SEGMENTS = 22;
 export const GROUND_WIDTH = 4;
