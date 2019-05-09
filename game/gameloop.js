@@ -61,13 +61,13 @@ export function worldview() {
             ];
 
         // main game panel
-        const pane = pane(ROOM_WIDTH, ROOM_HEIGHT, roomSprites).at(1, 6);
+        const worldPane = pane(ROOM_WIDTH, ROOM_HEIGHT, roomSprites).at(1, 6);
 
         // increment clock
         ++player.world.clock;
 
         // give sprites
-        return { sprites: [pane, helloFrog], gameloop: killer ? dead : null };
+        return { sprites: [worldPane, helloFrog], gameloop: killer ? dead : null };
     };
 };
 
