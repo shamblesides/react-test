@@ -3,7 +3,7 @@ import { mid } from './math';
 import groundPng from './sprites/ground.png';
 import propsPng from './sprites/props.png';
 import {fill} from '../lib/gfx/fill';
-import {multi} from '../lib/gfx/multi';
+import {pane} from '../lib/gfx/pane';
 import { gridSheet } from '../lib/gfx/gridsheet';
 import { img } from '../lib/gfx/img';
 
@@ -32,7 +32,7 @@ function getSprites(ground) {
         );
     });
 
-    return multi(ROOM_WIDTH, ROOM_HEIGHT, sprites).at(0, 0);
+    return pane(ROOM_WIDTH, ROOM_HEIGHT, sprites).at(0, 0);
 }
 
 function makeRoom(world, prevRoom) {

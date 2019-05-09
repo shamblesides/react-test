@@ -1,7 +1,7 @@
 import { ROOM_WIDTH, ROOM_HEIGHT } from './rooms';
 import { createPlayer } from './player';
 import { rand as rootRand } from './rand';
-import {multi} from '../lib/gfx/multi';
+import {pane} from '../lib/gfx/pane';
 import {fill} from '../lib/gfx/fill';
 import {letters} from '../lib/gfx/letters';
 import px6 from '../lib/fonts/px6';
@@ -10,7 +10,7 @@ export function worldview() {
     const seed = (Math.random()*100000)|0;
     const player = createPlayer({ rooms: new Map(), clock: 0, rand: rootRand.create(seed) });
 
-    const helloFrog = multi(90, 6, [
+    const helloFrog = pane(90, 6, [
         fill('black'),
         letters(px6, 'world '+seed).single().at(1, 0)
     ]);
@@ -61,7 +61,7 @@ export function worldview() {
             ];
 
         // main game panel
-        const pane = multi(ROOM_WIDTH, ROOM_HEIGHT, roomSprites).at(1, 6);
+        const pane = pane(ROOM_WIDTH, ROOM_HEIGHT, roomSprites).at(1, 6);
 
         // increment clock
         ++player.world.clock;
