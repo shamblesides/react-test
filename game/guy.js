@@ -71,7 +71,7 @@ const base = {
         const transforms = [];
         if (this.flip) transforms.push(flip(this.flip));
         if (this.colors) transforms.push(recolor(this.colors));
-        return guysSheet.sprite(this.frame(this.clock()), ...transforms).at(this.x - 8, this.y - 8)
+        return guysSheet.sprite(this.frame(this.clock())).transform(...transforms).at(this.x - 8, this.y - 8);
     },
 };
 
