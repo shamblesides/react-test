@@ -7,13 +7,18 @@ import {letters} from '../lib/gfx/letters';
 import px6 from '../lib/fonts/px6';
 
 export function worldview() {
-    const seed = (Math.random()*100000)|0;
+    const seed = 76576;
     const player = createPlayer({ rooms: new Map(), clock: 0, rand: rootRand.create(seed) });
 
-    const helloFrog = pane(90, 6, [
-        fill('black'),
-        letters(px6, 'world '+seed).single().at(1, 0)
-    ]);
+    let helloFrog = null;
+
+    function updateText() {
+        helloFrog = pane(90, 6, [
+            fill('black'),
+            letters(px6, `world ${seed}-${player.roomNum+1}`).single().at(1, 0)
+        ]);
+    }
+    updateText();
 
     return function gameloop({ buttons }) {
         // let everything move like itself
@@ -36,12 +41,14 @@ export function worldview() {
         if (player.x === ROOM_WIDTH - 1) {
             ++player.roomNum;
             player.x = 1;
+            updateText();
         }
         // previous room??
         else if (player.x === 0) {
             if (player.roomNum !== 0) {
                 --player.roomNum;
                 player.x = ROOM_WIDTH - 2;
+                updateText();
             }
         }
 
