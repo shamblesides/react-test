@@ -20,6 +20,12 @@ export function worldview() {
     }
     updateText();
 
+    const playback = [];
+
+    function parseBrain({ left, right, up, down }) {
+        return [up,down,right,left].map((on,i) => on ? ['↑','↓','→','←'][i] : ' ').join('')
+    }
+
     return function gameloop({ buttons }) {
         // let everything move like itself
         const playerBrain = {
@@ -28,6 +34,13 @@ export function worldview() {
             up: buttons.up.pressed,
             down: buttons.down.pressed,
         };
+
+        if (playback.length > 0 && parseBrain(playerBrain) === playback[playback.length-1].brain) {
+            playback[playback.length-1].time++;
+        } else {
+            playback.push({ brain: parseBrain(playerBrain), time: 1 })
+        }
+
         player.act(playerBrain);
         player.move();
 
@@ -74,14 +87,19 @@ export function worldview() {
         ++player.world.clock;
 
         // give sprites
-        return { sprites: [worldPane, helloFrog], gameloop: killer ? dead : null };
+        return { sprites: [worldPane, helloFrog], gameloop: killer ? dead(playback) : null };
     };
 };
 
-function dead({ buttons }) {
-    if (buttons.ok.justPressed) {
-        return { gameloop: worldview() };
-    } else {
-        return {}
+function dead(playback) {
+    console.log('bye')
+    console.log(playback.map(({brain,time}) => `|${brain}|${('     '+time).substr(-6)}`).join('\n'))
+
+    return function gameloop({ buttons }) {
+        if (buttons.ok.justPressed) {
+            return { gameloop: worldview() };
+        } else {
+            return {}
+        }
     }
 }
