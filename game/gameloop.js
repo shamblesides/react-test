@@ -96,7 +96,7 @@ function dead(playback) {
     console.log(playback.map(({brain,time}) => `|${brain}|${('     '+time).substr(-6)}`).join('\n'))
 
     return function gameloop({ buttons }) {
-        if (buttons.ok.justPressed) {
+        if ([buttons.ok, buttons.left, buttons.right, buttons.up, buttons.down].some(b => b.justPressed)) {
             return { gameloop: worldview() };
         } else {
             return {}
