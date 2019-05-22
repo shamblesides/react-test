@@ -5,7 +5,7 @@ const StatsWebpackPlugin = require('stats-webpack-plugin');
 module.exports = {
     entry: './index.js',
     plugins: [
-        new HtmlWebpackPlugin({ title: 'GAME' }),
+        new HtmlWebpackPlugin({ title: 'GAME', meta: { viewport: "width=device-width,initial-scale=1,maximum-scale=1" } }),
         new CleanWebpackPlugin(),
         new StatsWebpackPlugin('stats.json', {
             chunkModules: true
