@@ -1,6 +1,5 @@
-import { ROOM_WIDTH, ROOM_HEIGHT } from './rooms';
-import { createPlayer } from './player';
-import { rand as rootRand } from './rand';
+import { ROOM_WIDTH, ROOM_HEIGHT } from './const';
+import { world } from './world';
 import {pane} from '../lib/gfx/pane';
 import {fill} from '../lib/gfx/fill';
 import {letters} from '../lib/gfx/letters';
@@ -8,7 +7,7 @@ import px6 from '../lib/fonts/px6';
 
 export function worldview() {
     const seed = 76576;
-    const player = createPlayer({ rooms: new Map(), clock: 0, rand: rootRand.create(seed) });
+    const { player } = world(seed);
 
     let helloFrog = null;
 

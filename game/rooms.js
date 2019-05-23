@@ -10,13 +10,15 @@ import { img } from '../lib/gfx/img';
 const groundImg = img(groundPng);
 const propsSheet = gridSheet(propsPng, 32, 32);
 
-export const ROOM_SEGMENTS = 22;
-export const GROUND_WIDTH = 4;
-export const ROOM_WIDTH = ROOM_SEGMENTS * GROUND_WIDTH;
-export const ROOM_HEIGHT = 53;
-export const MIN_GROUND_HEIGHT = 35;
-export const MAX_GROUND_HEIGHT = 50;
-export const NUM_PROPS = 22;
+import {
+    ROOM_SEGMENTS,
+    GROUND_WIDTH,
+    ROOM_WIDTH,
+    ROOM_HEIGHT,
+    MIN_GROUND_HEIGHT,
+    MAX_GROUND_HEIGHT,
+    NUM_PROPS,
+} from './const'
 
 const backgroundColor = '#45283c';
 
@@ -35,7 +37,7 @@ function getSprites(ground) {
     return pane(ROOM_WIDTH, ROOM_HEIGHT, sprites).at(0, 0);
 }
 
-function makeRoom(world, prevRoom) {
+export function makeRoom(world, prevRoom) {
     const { rand } = world;
     const startGround = (prevRoom) ?
         { ...prevRoom.ground[prevRoom.ground.length-1], props: [] } :
@@ -60,14 +62,3 @@ function makeRoom(world, prevRoom) {
     }
     return { ground, guys, roomNum, sprites: getSprites(ground) };
 }
-
-export function getRoom(world, roomNum) {
-    if (roomNum < 0) return null;
-
-    if (!world.rooms.has(roomNum)) {
-        world.rooms.set(roomNum, makeRoom(world, roomNum === 0 ? null : getRoom(world, roomNum - 1)));
-    }
-
-    return world.rooms.get(roomNum);
-}
-

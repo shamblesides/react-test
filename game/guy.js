@@ -1,9 +1,9 @@
-import { getRoom, GROUND_WIDTH, ROOM_WIDTH } from './rooms';
 import { mid, clamp } from './math';
 import guysPng from './sprites/guys.png';
 import {recolor} from '../lib/transform/recolor';
 import {flip} from '../lib/transform/flip';
 import { gridSheet } from '../lib/gfx/gridsheet';
+import { GROUND_WIDTH, ROOM_WIDTH } from './const';
 
 const guysSheet = gridSheet(guysPng, 16, 16);
 
@@ -38,7 +38,7 @@ const base = {
     right() { return this.x + this.w/2; },
     top() { return this.y - this.h/2; },
     bottom() { return this.y + this.h/2; },
-    room() { return getRoom(this.world, this.roomNum); },
+    room() { return this.world.getRoom(this.roomNum); },
     groundIndex() { return Math.floor(this.x / GROUND_WIDTH); },
     ground() { return this.room().ground[this.groundIndex()]; },
     isGrounded() { return this.ground().height === this.bottom(); },

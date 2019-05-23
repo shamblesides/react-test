@@ -1,5 +1,5 @@
 import { guy } from './guy';
-import { ROOM_WIDTH } from './rooms';
+import { ROOM_WIDTH } from './const';
 import { mid } from './math';
 
 export const froge = guy((base) => ({
