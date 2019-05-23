@@ -1,4 +1,4 @@
-import { pxcan } from '../lib'
+import { pxcan } from '../lib/pxcan'
 import { binds } from './binds';
 import { worldview } from './gameloop';
 import { pad } from '../lib/input/pad'
