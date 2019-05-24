@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StatsWebpackPlugin = require('stats-webpack-plugin');
 
 module.exports = {
-    entry: './index.js',
+    entry: './example/index.js',
     plugins: [
         new HtmlWebpackPlugin({ title: 'GAME', meta: { viewport: "width=device-width,initial-scale=1,maximum-scale=1" } }),
         new CleanWebpackPlugin(),

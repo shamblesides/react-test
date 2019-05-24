@@ -5,7 +5,7 @@ import { terser } from "rollup-plugin-terser";
 import url from "rollup-plugin-url"
 
 export default {
-  input: 'index.js',
+  input: 'example/index.js',
   output: {
     dir: 'dist',
     format: 'esm'
