@@ -36,7 +36,10 @@
     "ios >=9.3"
   ],
   "eslintConfig": {
-    "extends": "eslint:recommended",
+    "extends": [
+      "eslint:recommended",
+      "plugin:compat/recommended"
+    ],
     "parserOptions": {
       "ecmaVersion": 2018,
       "sourceType": "module"
@@ -47,6 +50,7 @@
     }
   },
   "devDependencies": {
-    "eslint": "^4.5.0"
+    "eslint": "^4.19.1",
+    "eslint-plugin-compat": "^3.1.1"
   }
 }
