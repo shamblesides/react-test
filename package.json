@@ -31,7 +31,8 @@
     "lint": "eslint ."
   },
   "browserslist": [
-    "last 2 versions and not dead and > 0.5% in US",
+    "last 2 versions and not dead and > 0.5%",
+    "not operamini all",
     "not ie 11",
     "ios >=9.3"
   ],
