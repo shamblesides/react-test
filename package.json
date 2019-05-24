@@ -15,7 +15,9 @@
   "license": "MIT",
   "author": "Nigel Nelson",
   "files": [
-    "!test"
+    "*.js",
+    "fonts",
+    "util"
   ],
   "browser": "pxcan.js",
   "sideEffects": false,
