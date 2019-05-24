@@ -17,7 +17,7 @@ function loadImage(src) {
 export function img(src) {
     let canvas;
     const promise = loadImage(src).then(c => canvas = c);
-    return new drawable(
+    return drawable(
         () => promise,
         () => canvas,
     );
