@@ -88,7 +88,7 @@ export function worldview() {
         // give sprites
         return { sprites: [worldPane, helloFrog], gameloop: killer ? dead(playback) : null };
     };
-};
+}
 
 function dead(playback) {
     console.log('bye')

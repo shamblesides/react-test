@@ -12,4 +12,4 @@ const cropCanvas = memoize(function cropCanvas(edgesStr, inputCanvas) {
 
 export function crop(edges) {
     return (canvas) => cropCanvas(JSON.stringify(edges), canvas)
-};
+}

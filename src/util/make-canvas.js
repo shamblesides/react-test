@@ -4,4 +4,4 @@ export function makeCanvas(width, height, alpha=true) {
     canvas.height = height;
     const ctx = canvas.getContext('2d', {alpha});
     return [canvas, ctx];
-};
+}
