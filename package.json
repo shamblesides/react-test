@@ -28,7 +28,8 @@
     "url": "git+https://github.com/shamblesides/pxcan.git"
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "ava"
   },
   "browserslist": [
     "last 2 versions and not dead and > 0.5%",
@@ -50,8 +51,18 @@
       "browser": true
     }
   },
+  "ava": {
+    "require": [
+      "esm",
+      "./test/_setup-browser-env.js"
+    ]
+  },
   "devDependencies": {
+    "ava": "^1.4.1",
+    "browser-env": "^3.2.6",
+    "canvas": "^2.5.0",
     "eslint": "^4.19.1",
-    "eslint-plugin-compat": "^3.1.1"
+    "eslint-plugin-compat": "^3.1.1",
+    "esm": "^3.2.25"
   }
 }
