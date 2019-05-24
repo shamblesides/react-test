@@ -15,13 +15,9 @@
   "license": "MIT",
   "author": "Nigel Nelson",
   "files": [
-    "src"
+    "!test"
   ],
-  "browser": "src/pxcan.js",
-  "directories": {
-    "lib": "src",
-    "example": "example"
-  },
+  "browser": "pxcan.js",
   "sideEffects": false,
   "repository": {
     "type": "git",
