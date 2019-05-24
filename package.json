@@ -24,6 +24,8 @@
     "example": "example"
   },
 
+  "sideEffects": false,
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shamblesides/pxcan.git"
