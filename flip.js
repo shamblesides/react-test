@@ -1,5 +1,5 @@
-import { memoize } from '../util/memoize.js';
-import { makeCanvas } from '../util/make-canvas.js';
+import { memoize } from './util/memoize.js';
+import { makeCanvas } from './util/make-canvas.js';
 
 const getFlip = memoize(function getFlip(args) {
     let xflip = false, yflip = false, cwrot = false;

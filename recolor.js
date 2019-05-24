@@ -1,5 +1,5 @@
-import { memoize } from '../util/memoize.js';
-import { makeCanvas } from '../util/make-canvas.js';
+import { memoize } from './util/memoize.js';
+import { makeCanvas } from './util/make-canvas.js';
 
 const recolorCanvas = memoize(function recolorCanvas(sourceCanvas, colors) {
     colors = colors.split(',');

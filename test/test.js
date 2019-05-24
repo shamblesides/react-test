@@ -1,5 +1,5 @@
 import test from 'ava';
-import { pxcan } from '../src/pxcan';
+import { pxcan } from '../pxcan.js';
 
 const nullLoop = () => ({ gameloop: null });
 

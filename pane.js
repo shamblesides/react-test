@@ -1,5 +1,5 @@
-import { drawable } from '../util/drawable.js';
-import { makeCanvas } from '../util/make-canvas.js';
+import { drawable } from './util/drawable.js';
+import { makeCanvas } from './util/make-canvas.js';
 
 const lazyUniq = (arr) => arr.length > 20 ? [...arr.reduce((set,x) => set.add(x), new Set)]: arr;
 
