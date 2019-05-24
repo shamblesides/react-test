@@ -1,5 +1,5 @@
-import { drawable } from '../util/drawable';
-import { makeCanvas } from '../util/make-canvas';
+import { drawable } from '../util/drawable.js';
+import { makeCanvas } from '../util/make-canvas.js';
 
 function loadImage(src) {
     return new Promise((resolve, reject) => {

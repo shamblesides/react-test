@@ -1,5 +1,5 @@
-import { memoize } from '../util/memoize';
-import { makeCanvas } from '../util/make-canvas';
+import { memoize } from '../util/memoize.js';
+import { makeCanvas } from '../util/make-canvas.js';
 
 const cropCanvas = memoize(function cropCanvas(edgesStr, inputCanvas) {
     const {top=0,bottom=0,left=0,right=0} = JSON.parse(edgesStr);

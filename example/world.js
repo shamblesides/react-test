@@ -1,6 +1,6 @@
-import { froge } from './guys';
-import { rand } from './rand';
-import { makeRoom } from './rooms'
+import { froge } from './guys.js';
+import { rand } from './rand.js';
+import { makeRoom } from './rooms.js'
 
 function createPlayer(world) {
     const color = '#' + (Math.random() * (2**24) | 0).toString(16);

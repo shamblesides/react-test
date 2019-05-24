@@ -1,4 +1,4 @@
-import {pane} from './pane';
+import {pane} from './pane.js';
 
 // word wrap function by james padolsey
 // modified from original

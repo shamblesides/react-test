@@ -1,7 +1,7 @@
-import { memoize } from '../util/memoize';
-import { makeCanvas } from '../util/make-canvas';
-import { drawable } from '../util/drawable';
-import { img } from './img';
+import { memoize } from '../util/memoize.js';
+import { makeCanvas } from '../util/make-canvas.js';
+import { drawable } from '../util/drawable.js';
+import { img } from './img.js';
 
 function spriteFactory(sheetCanvas, width, height) {
     const numCols = Math.floor(sheetCanvas.width/width);

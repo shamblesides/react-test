@@ -1,6 +1,6 @@
-import { guy } from './guy';
-import { ROOM_WIDTH } from './const';
-import { mid } from './math';
+import { guy } from './guy.js';
+import { ROOM_WIDTH } from './const.js';
+import { mid } from './math.js';
 
 export const froge = guy((base) => ({
     ...base,

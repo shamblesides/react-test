@@ -1,9 +1,9 @@
-import { mid, clamp } from './math';
+import { mid, clamp } from './math.js';
 import guysPng from './sprites/guys.png';
-import {recolor} from '../src/transform/recolor';
-import {flip} from '../src/transform/flip';
-import { gridSheet } from '../src/gfx/gridsheet';
-import { GROUND_WIDTH, ROOM_WIDTH } from './const';
+import {recolor} from '../src/transform/recolor.js';
+import {flip} from '../src/transform/flip.js';
+import { gridSheet } from '../src/gfx/gridsheet.js';
+import { GROUND_WIDTH, ROOM_WIDTH } from './const.js';
 
 const guysSheet = gridSheet(guysPng, 16, 16);
 

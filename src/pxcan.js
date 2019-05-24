@@ -1,5 +1,5 @@
-import { makeCanvas } from "./util/make-canvas";
-import {pane} from './gfx/pane';
+import { makeCanvas } from './util/make-canvas.js';
+import {pane} from './gfx/pane.js';
 
 const canvasCss = `
 object-fit: contain;
