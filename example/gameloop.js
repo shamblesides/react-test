@@ -1,9 +1,9 @@
 import { ROOM_WIDTH, ROOM_HEIGHT } from './const';
 import { world } from './world';
-import {pane} from '../lib/gfx/pane';
-import {fill} from '../lib/gfx/fill';
-import {letters} from '../lib/gfx/letters';
-import px6 from '../lib/fonts/px6';
+import {pane} from '../src/gfx/pane';
+import {fill} from '../src/gfx/fill';
+import {letters} from '../src/gfx/letters';
+import px6 from '../src/fonts/px6';
 
 export function worldview() {
     const seed = 76576;

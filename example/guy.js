@@ -1,8 +1,8 @@
 import { mid, clamp } from './math';
 import guysPng from './sprites/guys.png';
-import {recolor} from '../lib/transform/recolor';
-import {flip} from '../lib/transform/flip';
-import { gridSheet } from '../lib/gfx/gridsheet';
+import {recolor} from '../src/transform/recolor';
+import {flip} from '../src/transform/flip';
+import { gridSheet } from '../src/gfx/gridsheet';
 import { GROUND_WIDTH, ROOM_WIDTH } from './const';
 
 const guysSheet = gridSheet(guysPng, 16, 16);

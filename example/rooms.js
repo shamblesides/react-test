@@ -2,10 +2,10 @@ import { guyTypes } from './guys';
 import { mid } from './math';
 import groundPng from './sprites/ground.png';
 import propsPng from './sprites/props.png';
-import {fill} from '../lib/gfx/fill';
-import {pane} from '../lib/gfx/pane';
-import { gridSheet } from '../lib/gfx/gridsheet';
-import { img } from '../lib/gfx/img';
+import {fill} from '../src/gfx/fill';
+import {pane} from '../src/gfx/pane';
+import { gridSheet } from '../src/gfx/gridsheet';
+import { img } from '../src/gfx/img';
 
 const groundImg = img(groundPng);
 const propsSheet = gridSheet(propsPng, 32, 32);
