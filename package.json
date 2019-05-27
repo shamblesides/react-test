@@ -19,7 +19,8 @@
     "fonts",
     "util"
   ],
-  "browser": "pxcan.js",
+  "main": "index.js",
+  "browser": "index.js",
   "sideEffects": false,
   "repository": {
     "type": "git",
