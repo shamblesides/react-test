@@ -4,11 +4,16 @@ function coords(evt, canvas, zero = false) {
 
     const upscaling = Math.min(canvas.clientWidth/canvas.width, canvas.clientHeight/canvas.height);
 
-    const { offsetX, offsetY } = (canvas.width/canvas.height > canvas.clientWidth/canvas.clientHeight) ?
-        // canvas aspect ratio wider than screen aspect ratio -> leftovers on top and bottom
-        { offsetX: 0, offsetY: (canvas.clientHeight - canvas.height*upscaling)/2 } :
-        // canvas aspect ratio taller than screen aspect ratio -> leftovers on sides
-        { offsetY: 0, offsetX: (canvas.clientWidth - canvas.width*upscaling)/2 };
+    // derive the screen's position in the canvas element from the object-position css prop
+    let offsetX = 0;
+    let offsetY = 0;
+    const [, xPercent, yPercent] = getComputedStyle(canvas).objectPosition.match(/^(\d+)% (\d+)%$/) || [];
+    const aspect = canvas.width/canvas.height > canvas.clientWidth/canvas.clientHeight;
+    if (aspect < 1) {
+        offsetX = (canvas.clientWidth - canvas.width*upscaling) * (+xPercent/100);
+    } else if (aspect > 1) {
+        offsetY = (canvas.clientHeight - canvas.height*upscaling) * (+yPercent/100);
+    }
 
     const coords = {
         x: Math.floor((pageX - offsetX) / upscaling),
