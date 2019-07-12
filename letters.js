@@ -3,14 +3,14 @@ import {pane} from './pane.js';
 // word wrap function by james padolsey
 // modified from original
 // http://james.padolsey.com/javascript/wordwrap-for-javascript/
-function wordwrap(str, width = 80, maxLines = Infinity) {
+function wordwrap(str, width, maxLines) {
     const regex = RegExp('.{0,' +width+ '}(\\s|$)|.{' +width+ '}|.+$', 'g');
     let lines = str.match(regex).slice(0, maxLines);
     if (lines[lines.length-1] === '') lines = lines.slice(0, lines.length-1);
     return lines.map(line => line.trim()).join('\n').split('\n');
 }
 
-export function letters(font, str, maxCols=Infinity, maxRows=Infinity) {
+export function letters(font, str, maxCols=10000, maxRows=10000) {
     const lines = wordwrap(str, maxCols, maxRows);
 
     const w = font.width;
