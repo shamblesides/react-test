@@ -7,7 +7,8 @@ function coords(evt, canvas, zero = false) {
     // derive the screen's position in the canvas element from the object-position css prop
     let offsetX = 0;
     let offsetY = 0;
-    const [, xPercent, yPercent] = getComputedStyle(canvas).objectPosition.match(/^(\d+)% (\d+)%$/) || [];
+    const objectPosition = getComputedStyle(canvas).objectPosition || '50% 50%';
+    const [, xPercent, yPercent] = objectPosition.match(/^(\d+)% (\d+)%$/) || [];
     const aspect = canvas.width/canvas.height > canvas.clientWidth/canvas.clientHeight;
     if (aspect < 1) {
         offsetX = (canvas.clientWidth - canvas.width*upscaling) * (+xPercent/100);
