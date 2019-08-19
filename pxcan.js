@@ -1,29 +1,17 @@
 import { makeCanvas } from './util/make-canvas.js';
 import {pane} from './pane.js';
 
-const canvasCss = `
-object-fit: contain;
-object-position: center top;
-touch-action: none;
-background-color: black;
-image-rendering: optimizeSpeed;
-image-rendering: -moz-crisp-edges;
-image-rendering: -o-crisp-edges;
-image-rendering: -webkit-optimize-contrast;
-image-rendering: pixelated;
-image-rendering: optimize-contrast;
--ms-interpolation-mode: nearest-neighbor;`;
-
-export function pxcan({ width=160, height=144, scale='auto', fps=60 }, attachments, gameloop) {
+export function pxcan({ width=160, height=144, fps=60 }, attachments, gameloop) {
     // make canvas that will be displayed
     const [canvas, ctx] = makeCanvas(width, height, false);
     ctx.globalCompositeOperation = 'copy';
-    canvas.style.cssText = canvasCss;
-    // decide whether to show as an inline element, or to fill its host element completely
-    const inline = (scale !== 'auto' && width > 0 && height > 0);
-    canvas.style.display = inline ? 'inline' : 'block';
-    canvas.style.width = inline ? `${width*scale}px` : '100%';
-    canvas.style.height = inline ? `${height*scale}px` : '100%';
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+        // firefox doesn't support 'pixelated'
+        canvas.style.imageRendering = '-moz-crisp-edges';
+    } else {
+        canvas.style.imageRendering = 'pixelated';
+    }
+    canvas.style.msInterpolationMode = 'nearest-neighbor';
 
     // function to update the canvas
     const [tmpCanvas,tmpCtx] = makeCanvas(width, height, false);
@@ -78,12 +66,6 @@ export function pxcan({ width=160, height=144, scale='auto', fps=60 }, attachmen
 
     return {
         canvas,
-        fullscreen() {
-            document.querySelector('html').style.height = '100%'
-            document.body.style.cssText = 'margin:0;height:100%';
-            document.body.appendChild(canvas);
-            canvas.focus();
-        },
         stop() {
             gameloop = null
         },
