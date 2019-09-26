@@ -2,6 +2,7 @@ export { pxcan } from './pxcan.js';
 
 // drawables
 export { fill } from './fill.js';
+export { font } from './font.js';
 export { gridSheet } from './gridsheet.js';
 export { img } from './img.js';
 export { letters } from './letters.js';
