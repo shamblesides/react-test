@@ -21,6 +21,8 @@ export function font(src, width, height, characterString=ascii) {
     }, {});
 
     return {
+        width: gridsheet.width,
+        height: gridsheet.height,
         letter(char) {
             return spriteFor[char+''];
         },
