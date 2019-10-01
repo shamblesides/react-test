@@ -5,7 +5,6 @@ export { fill } from './fill.js';
 export { font } from './font.js';
 export { gridSheet } from './gridsheet.js';
 export { img } from './img.js';
-export { letters } from './letters.js';
 export { pane } from './pane.js';
 
 // transforms
