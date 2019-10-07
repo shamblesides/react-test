@@ -10,7 +10,7 @@ function wordwrap(str, width, maxLines) {
     const regex = RegExp('.{0,' +width+ '}(\\s|$)|.{' +width+ '}|.+$', 'g');
     let lines = str.match(regex).slice(0, maxLines);
     if (lines[lines.length-1] === '') lines = lines.slice(0, lines.length-1);
-    return lines.map(line => line.trim()).join('\n').split('\n');
+    return lines.map(line => line.trimRight()).join('\n').split('\n');
 }
 
 export function font(src, width, height, characterString=ascii) {
