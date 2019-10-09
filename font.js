@@ -38,8 +38,11 @@ export function font(src, width, height, characterString=ascii) {
             const letters = lines.map(
                 (line, row) => line
                     .split('')
-                    .map((char, col) => spriteFor[char].at(col*w, row*h))
-            ).reduce((arr, x) => arr.concat(x));
+                    .map(char => spriteFor[char])
+                    .map((sprite, col) => sprite && sprite.at(col*w, row*h))
+            )
+            .reduce((arr, x) => arr.concat(x))
+            .filter(x => x);
 
             const asMulti = pane(w*cols, h*rows, letters);
 
