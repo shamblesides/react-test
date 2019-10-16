@@ -27,6 +27,8 @@ function coords(evt, canvas, zero = false) {
     return coords;
 }
 
+const touchThreshold = 2;
+
 export function pointer() {
     return function attachPointer(canvas) {
         let touches = [];
@@ -76,7 +78,9 @@ export function pointer() {
             const touchCoords = coords(event, canvas);
             touch.dx = (touch.dx || 0) + touchCoords.x - touch.x;
             touch.dy = (touch.dy || 0) + touchCoords.y - touch.y;
-            if (touch.dx !== 0 || touch.dy !== 0) touch.isDrag = true;
+            if (Math.abs(touch.x0 - touchCoords.x) >= touchThreshold || Math.abs(touch.y0 - touchCoords.y) >= touchThreshold) {
+                touch.isDrag = true;
+            }
             touch.x = touchCoords.x;
             touch.y = touchCoords.y;
         };
@@ -94,7 +98,9 @@ export function pointer() {
                 const touchCoords = coords(touchevt, canvas);
                 touch.dx = (touch.dx || 0) + touchCoords.x - touch.x;
                 touch.dy = (touch.dy || 0) + touchCoords.y - touch.y;
-                if (touch.dx !== 0 || touch.dy !== 0) touch.isDrag = true;
+                if (Math.abs(touch.x0 - touchCoords.x) >= touchThreshold || Math.abs(touch.y0 - touchCoords.y) >= touchThreshold) {
+                    touch.isDrag = true;
+                }
                 touch.x = touchCoords.x;
                 touch.y = touchCoords.y;
             });
