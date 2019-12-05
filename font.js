@@ -1,5 +1,7 @@
 import {pane} from './pane.js';
 import { gridSheet } from './gridsheet.js';
+import { img } from './img.js';
+import { crop } from './crop.js';
 
 const ascii = Array(128-32).fill().map((_,i) => String.fromCharCode(i+32)).join('');
 
@@ -58,3 +60,51 @@ export function font(src, width, height, characterString=ascii) {
     }
 }
 
+export function font2(src, height, characterString, widths) {
+    if (typeof widths === 'string') {
+        widths = widths.split('').map(ch => +ch);
+    }
+    const image = img(src);
+    const spriteFor = [...characterString].reduce((hash, letter, i) => {
+        hash[letter] = image.transform(crop)
+        
+        hash[letter] = gridsheet.sprite(i);
+        return hash;
+    }, {});
+
+    return {
+        height,
+        letter(char) {
+            return spriteFor[char+''];
+        },
+        letters(str, maxCols=10000, maxRows=10000) {
+            const lines = wordwrap(str+'', maxCols, maxRows);
+
+            const w = gridsheet.width;
+            const h = gridsheet.height;
+
+            const cols = Math.max(...lines.map(line => line.length));
+            const rows = lines.length;
+
+            const letters = lines.map(
+                (line, row) => line
+                    .split('')
+                    .map(char => spriteFor[char])
+                    .map((sprite, col) => sprite && sprite.at(col*w, row*h))
+            )
+            .reduce((arr, x) => arr.concat(x))
+            .filter(x => x);
+
+            const asMulti = pane(w*cols, h*rows, letters);
+
+            return {
+                separately() {
+                    return { cols, rows, letters };
+                },
+                single() {
+                    return asMulti;
+                }
+            }
+        }
+    }
+}
