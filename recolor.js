@@ -1,3 +1,4 @@
+/** @module pxcan/recolor */
 import { memoize } from './util/memoize.js';
 import { makeCanvas } from './util/make-canvas.js';
 
@@ -23,6 +24,25 @@ const recolorCanvas = memoize(function recolorCanvas(sourceCanvas, colors) {
     return canvas;
 });
 
+/**
+ * recolor - Transformer that can recolor a canvas to conform to a certain palette
+ * 
+ * This takes one argument, an array of strings, each of which should be a valid CSS color value.
+ * 
+ * To determine how to recolor the sprite, each pixel's original color value is broken into its
+ * individual RGB components, and then summed together. We then create n nearly equally-sized buckets
+ * to cover the range of values that these sums may fall into. This determines the index on the
+ * provided palette for the replacement color.
+ * 
+ * Values close to black in original image will map to the first index of the provided array.
+ * Values close to white will map to the end of the array.
+ * 
+ * Completely transparent values on the original image are kept completely transparent. All other
+ * pixels are made completely opaque.
+ * 
+ * @param {string[]} colors - The new palette for the image
+ * @returns {function(HTMLCanvasElement): HTMLCanvasElement} Transform function
+ */
 export function recolor(colors) {
     return (canvas) => recolorCanvas(canvas, colors.join());
 }
